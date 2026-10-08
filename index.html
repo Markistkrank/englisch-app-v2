@@ -3,383 +3,328 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#ffffff" />
-  <title>Englisch App V2</title>
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Englisch" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="manifest" href="manifest.webmanifest" />
+  <title>Englisch – 20 Minuten</title>
   <style>
-    :root {
-      --bg: #f7f7f8;
-      --card: #ffffff;
-      --text: #171717;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --ok: #e8f7ee;
-      --warn: #fff7df;
+    :root{
+      --bg:#f5f7fb; --card:#fff; --text:#16181d; --muted:#667085;
+      --line:#e6eaf0; --dark:#111827; --soft:#eef2f7; --good:#eaf8ef; --warn:#fff6dc;
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 18px; }
-    h1 { font-size: 1.75rem; margin: 8px 0 4px; }
-    h2 { font-size: 1.2rem; margin-top: 0; }
-    .sub { color: var(--muted); margin-bottom: 18px; }
-    .grid { display: grid; gap: 12px; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    .wrap{max-width:720px;margin:0 auto;padding:18px 16px 40px}
+    h1{font-size:1.7rem;margin:8px 0 3px}
+    h2{font-size:1.18rem;margin:0 0 8px}
+    p{line-height:1.45}
+    .sub{color:var(--muted);margin-bottom:18px}
+    .card{
+      background:var(--card); border:1px solid var(--line); border-radius:20px;
+      padding:17px; margin-bottom:12px; box-shadow:0 2px 10px rgba(17,24,39,.04);
     }
-    button {
-      width: 100%;
-      border: 0;
-      border-radius: 14px;
-      padding: 14px 16px;
-      font-size: 1rem;
-      font-weight: 650;
-      cursor: pointer;
-      margin-top: 8px;
+    .hero{padding:20px}
+    .hero .big{font-size:1.22rem;font-weight:750;margin-bottom:6px}
+    .tiny{font-size:.9rem;color:var(--muted)}
+    .hidden{display:none!important}
+    button{
+      border:0;border-radius:14px;padding:13px 15px;font-size:1rem;font-weight:700;
+      cursor:pointer;margin-top:8px
     }
-    .primary { background: #111827; color: white; }
-    .secondary { background: #eef2f7; color: #111827; }
-    .small { width: auto; padding: 10px 12px; font-size: .95rem; }
-    .row { display: flex; gap: 8px; flex-wrap: wrap; }
-    input, textarea, select {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      font-size: 1rem;
-      background: white;
+    .full{width:100%}
+    .primary{background:var(--dark);color:#fff}
+    .secondary{background:var(--soft);color:var(--text)}
+    .ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .row button{flex:1;min-width:130px}
+    input,textarea,select{
+      width:100%;border:1px solid var(--line);border-radius:13px;padding:12px;
+      font:inherit;background:#fff;margin-top:7px
     }
-    .hidden { display: none !important; }
-    .progress {
-      height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden;
-      margin: 10px 0 16px;
-    }
-    .progress > div { height: 100%; background: #111827; width: 0%; transition: width .25s; }
-    .word { font-size: 2rem; font-weight: 750; margin: 10px 0 4px; }
-    .translation { color: var(--muted); font-size: 1.1rem; }
-    .example { background: #f3f4f6; border-radius: 12px; padding: 12px; margin-top: 12px; }
-    .ok { background: var(--ok); }
-    .warn { background: var(--warn); }
-    .tiny { font-size: .9rem; color: var(--muted); }
-    .pill {
-      display: inline-block; padding: 6px 10px; border-radius: 999px;
-      background: #eef2f7; margin: 4px 4px 0 0; font-size: .9rem;
-    }
-    .topnav { display: flex; gap: 8px; margin-bottom: 12px; }
-    .topnav button { margin: 0; }
+    .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .top button{width:auto;margin:0;padding:9px 12px}
+    .progress{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin:10px 0 14px}
+    .progress>div{height:100%;background:var(--dark);width:0%;transition:width .2s}
+    .word{font-size:2.25rem;font-weight:800;margin:8px 0 0}
+    .meaning{font-size:1.08rem;color:var(--muted);margin:2px 0 14px}
+    .sentence{font-size:1.24rem;font-weight:720;line-height:1.4;padding:14px;border-radius:14px;background:#f3f5f8;margin:10px 0}
+    .translation{padding:13px;border-radius:14px;background:#eef7ff;margin-top:8px}
+    .good{background:var(--good)}
+    .warn{background:var(--warn)}
+    .pill{display:inline-block;padding:6px 10px;background:#eef2f7;border-radius:999px;margin:4px 4px 0 0}
+    .navgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .navgrid button{margin:0}
+    .phase{font-weight:750}
+    .answerbox{margin-top:12px}
+    .metric{font-size:1.7rem;font-weight:800}
+    .center{text-align:center}
+    .divider{height:1px;background:var(--line);margin:14px 0}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Englisch App V2</h1>
-    <div class="sub">Einfach. 20 Minuten. Viel hören und sprechen.</div>
+<div class="wrap">
+  <section id="home">
+    <h1>Englisch</h1>
+    <div class="sub">20 Minuten am Tag – hören, verstehen, sprechen, wiederholen.</div>
 
-    <section id="home" class="grid">
-      <div class="card">
-        <h2>Heute lernen</h2>
-        <p>Geführte 20-Minuten-Einheit mit Wiederholung, Sätzen, Sprechen und Fehlertraining.</p>
-        <button class="primary" onclick="startTraining()">20-Minuten-Training starten</button>
+    <div class="card hero">
+      <div class="big">Heute lernen</div>
+      <div class="tiny">Eine geführte Einheit. Keine Menü-Suche, einfach anfangen.</div>
+      <button class="primary full" onclick="startLesson()">20-Minuten-Einheit starten</button>
+    </div>
+
+    <div class="navgrid">
+      <button class="secondary" onclick="openWords()">Meine Wörter</button>
+      <button class="secondary" onclick="openPractice()">Frei sprechen</button>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h2>So lernst du hier</h2>
+      <p class="tiny">Englisch zuerst. Deutsch erst auf Wunsch. Schwierige Wörter kommen häufiger wieder. Sprechen ist wichtiger als perfektes Tippen.</p>
+    </div>
+  </section>
+
+  <section id="lesson" class="hidden">
+    <div class="top">
+      <button class="ghost" onclick="goHome()">← Zurück</button>
+      <div class="tiny" id="lessonCounter"></div>
+    </div>
+    <div class="card">
+      <div class="phase" id="phaseName"></div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div id="lessonBody"></div>
+    </div>
+  </section>
+
+  <section id="wordsPage" class="hidden">
+    <div class="top">
+      <button class="ghost" onclick="goHome()">← Zurück</button>
+      <div class="tiny">Wortschatz</div>
+    </div>
+
+    <div class="card">
+      <h2>Neues Wort</h2>
+      <input id="enInput" placeholder="Englisches Wort, z. B. strong" />
+      <input id="deInput" placeholder="Deutsch, z. B. stark" />
+      <input id="enSentenceInput" placeholder="Englischer Satz, z. B. The wind is strong." />
+      <input id="deSentenceInput" placeholder="Deutsche Übersetzung, z. B. Der Wind ist stark." />
+      <div class="row">
+        <button class="secondary" onclick="dictateWord()">🎤 Wort sprechen</button>
+        <button class="primary" onclick="saveNewWord()">Speichern</button>
       </div>
+      <p class="tiny">Gespeichert wird nur auf diesem Gerät.</p>
+    </div>
 
-      <div class="card">
-        <h2>Sprechen</h2>
-        <p>Kurze Mini-Dialoge: Alltag, Restaurant, Hotel, Reisen, Sport und mehr.</p>
-        <button class="secondary" onclick="openSpeaking()">Mini-Dialog starten</button>
-      </div>
+    <div class="card">
+      <h2>Meine Wörter</h2>
+      <div id="wordsList"></div>
+    </div>
+  </section>
 
-      <div class="card">
-        <h2>Nur hören</h2>
-        <p>Wörter und einfache Sätze vorlesen lassen.</p>
-        <button class="secondary" onclick="openListening()">Hörmodus öffnen</button>
-      </div>
+  <section id="practicePage" class="hidden">
+    <div class="top">
+      <button class="ghost" onclick="goHome()">← Zurück</button>
+      <div class="tiny">Sprechen</div>
+    </div>
+    <div class="card">
+      <h2>Kurze Frage</h2>
+      <div class="sentence" id="freePrompt"></div>
+      <button class="secondary full" onclick="speakFreePrompt()">🔊 Frage hören</button>
+      <button class="ghost full" id="freeTranslationBtn" onclick="toggleFreeTranslation()">🇩🇪 Deutsch anzeigen</button>
+      <div id="freeTranslation" class="translation hidden"></div>
 
-      <div class="card">
-        <h2>Wort hinzufügen</h2>
-        <input id="newEnglish" placeholder="Englisches Wort" />
-        <input id="newGerman" placeholder="Deutsche Bedeutung" style="margin-top:8px" />
-        <input id="newExample" placeholder="Einfacher Beispielsatz (optional)" style="margin-top:8px" />
+      <div class="answerbox">
+        <textarea id="freeAnswer" rows="3" placeholder="Antworte auf Englisch – tippen oder diktieren"></textarea>
         <div class="row">
-          <button class="small secondary" onclick="startDictation()">🎤 Sprechen</button>
-          <button class="small primary" onclick="addWord()">Speichern</button>
+          <button class="secondary" onclick="dictateAnswer()">🎤 Antworten</button>
+          <button class="primary" onclick="nextFreePrompt()">Nächste Frage</button>
         </div>
-        <p class="tiny">Alle Wörter bleiben nur lokal in diesem Browser gespeichert.</p>
       </div>
-
-      <div class="card">
-        <h2>Meine Wörter</h2>
-        <div id="wordList"></div>
-      </div>
-    </section>
-
-    <section id="training" class="hidden">
-      <div class="topnav">
-        <button class="small secondary" onclick="goHome()">← Zurück</button>
-      </div>
-      <div class="card">
-        <div id="phaseTitle" class="tiny"></div>
-        <div class="progress"><div id="bar"></div></div>
-        <div id="trainingContent"></div>
-      </div>
-    </section>
-
-    <section id="speaking" class="hidden">
-      <div class="topnav">
-        <button class="small secondary" onclick="goHome()">← Zurück</button>
-      </div>
-      <div class="card">
-        <h2>Mini-Dialog</h2>
-        <label for="topic">Thema</label>
-        <select id="topic" onchange="resetDialogue()">
-          <option value="daily">Alltag</option>
-          <option value="restaurant">Restaurant</option>
-          <option value="hotel">Hotel</option>
-          <option value="travel">Reisen</option>
-          <option value="sport">Sport</option>
-          <option value="surf">Windsurfen</option>
-        </select>
-        <div id="dialogueBox" class="example" style="margin-top:14px"></div>
-        <button class="secondary" onclick="speakDialoguePrompt()">🔊 Frage vorlesen</button>
-        <textarea id="spokenAnswer" rows="3" placeholder="Deine Antwort – tippen oder diktieren"></textarea>
-        <div class="row">
-          <button class="small secondary" onclick="startAnswerDictation()">🎤 Antworten</button>
-          <button class="small primary" onclick="checkAnswer()">Weiter</button>
-        </div>
-        <div id="feedback" style="margin-top:12px"></div>
-      </div>
-    </section>
-
-    <section id="listening" class="hidden">
-      <div class="topnav">
-        <button class="small secondary" onclick="goHome()">← Zurück</button>
-      </div>
-      <div class="card">
-        <h2>Nur hören</h2>
-        <p>Tippe auf „Vorlesen“. Die App liest Wort, Übersetzung und Beispielsatz.</p>
-        <div id="listenWord"></div>
-        <button class="primary" onclick="speakCurrentListen()">🔊 Vorlesen</button>
-        <button class="secondary" onclick="nextListen()">Nächstes Wort</button>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
+</div>
 
 <script>
 const starterWords = [
-  {en:"wind", de:"Wind", ex:"The wind is strong.", score:0, seen:0},
-  {en:"board", de:"Brett", ex:"This is my board.", score:0, seen:0},
-  {en:"water", de:"Wasser", ex:"The water is cold.", score:0, seen:0}
+  {en:"wind",de:"Wind",enSentence:"The wind is strong.",deSentence:"Der Wind ist stark.",level:0,seen:0},
+  {en:"board",de:"Brett",enSentence:"This is my board.",deSentence:"Das ist mein Brett.",level:0,seen:0},
+  {en:"water",de:"Wasser",enSentence:"The water is cold.",deSentence:"Das Wasser ist kalt.",level:0,seen:0}
 ];
 
-let words = JSON.parse(localStorage.getItem("englishV2_words") || "null") || starterWords;
-let mistakes = JSON.parse(localStorage.getItem("englishV2_mistakes") || "[]");
-let trainingStep = 0;
-let listenIndex = 0;
-let dialogueIndex = 0;
-let currentDialoguePrompt = "";
-
-const phases = [
-  {title:"1. Wiederholen · ca. 4 Minuten", type:"review"},
-  {title:"2. Neue Sätze · ca. 5 Minuten", type:"sentences"},
-  {title:"3. Sprechen · ca. 7 Minuten", type:"speaking"},
-  {title:"4. Fehlertraining · ca. 3 Minuten", type:"mistakes"},
-  {title:"5. Abschluss · ca. 1 Minute", type:"finish"}
+const prompts = [
+  {en:"How are you today?",de:"Wie geht es dir heute?"},
+  {en:"What did you do this morning?",de:"Was hast du heute Morgen gemacht?"},
+  {en:"What are you doing tomorrow?",de:"Was machst du morgen?"},
+  {en:"What would you like to drink?",de:"Was möchtest du trinken?"},
+  {en:"What would you like to eat?",de:"Was möchtest du essen?"},
+  {en:"Do you have a reservation?",de:"Hast du eine Reservierung?"},
+  {en:"How many nights are you staying?",de:"Wie viele Nächte bleibst du?"},
+  {en:"Where are you going?",de:"Wohin fährst du?"},
+  {en:"What do you want to see there?",de:"Was möchtest du dort sehen?"},
+  {en:"What sport do you like?",de:"Welche Sportart magst du?"},
+  {en:"How often do you train?",de:"Wie oft trainierst du?"},
+  {en:"How is the wind today?",de:"Wie ist der Wind heute?"},
+  {en:"Which board do you use?",de:"Welches Brett benutzt du?"}
 ];
 
-const dialogues = {
-  daily: [
-    "How are you today?",
-    "What did you do this morning?",
-    "What are you doing tomorrow?"
-  ],
-  restaurant: [
-    "What would you like to drink?",
-    "What would you like to eat?",
-    "Was everything okay?"
-  ],
-  hotel: [
-    "Do you have a reservation?",
-    "How many nights are you staying?",
-    "What time would you like breakfast?"
-  ],
-  travel: [
-    "Where are you going?",
-    "How are you travelling?",
-    "What do you want to see there?"
-  ],
-  sport: [
-    "What sport do you like?",
-    "How often do you train?",
-    "Why do you like this sport?"
-  ],
-  surf: [
-    "How is the wind today?",
-    "Which board do you use?",
-    "What do you want to practise today?"
-  ]
-};
+let words = JSON.parse(localStorage.getItem("english_v2_words") || "null") || starterWords;
+let stats = JSON.parse(localStorage.getItem("english_v2_stats") || '{"done":0}');
+let lessonQueue = [];
+let lessonIndex = 0;
+let currentFree = null;
 
-function save() {
-  localStorage.setItem("englishV2_words", JSON.stringify(words));
-  localStorage.setItem("englishV2_mistakes", JSON.stringify(mistakes));
-  renderWordList();
+function persist(){
+  localStorage.setItem("english_v2_words",JSON.stringify(words));
+  localStorage.setItem("english_v2_stats",JSON.stringify(stats));
 }
-function showOnly(id) {
-  ["home","training","speaking","listening"].forEach(x => document.getElementById(x).classList.add("hidden"));
+
+function showOnly(id){
+  ["home","lesson","wordsPage","practicePage"].forEach(x=>document.getElementById(x).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
-function goHome(){ showOnly("home"); renderWordList(); }
-function say(text, lang="en-US") {
-  if (!("speechSynthesis" in window)) return alert("Vorlesen wird auf diesem Gerät nicht unterstützt.");
+function goHome(){showOnly("home")}
+function say(text){
+  if(!("speechSynthesis" in window)){alert("Vorlesen wird hier nicht unterstützt.");return;}
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang;
-  u.rate = 0.82;
-  speechSynthesis.speak(u);
+  const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u);
 }
-function renderWordList() {
-  const box = document.getElementById("wordList");
-  if (!words.length) { box.innerHTML = "<span class='tiny'>Noch keine Wörter.</span>"; return; }
-  box.innerHTML = words.map((w,i)=>`
-    <span class="pill">${escapeHtml(w.en)} · ${escapeHtml(w.de)}
-      <button aria-label="löschen" onclick="deleteWord(${i})" style="width:auto;margin:0 0 0 5px;padding:2px 6px;background:transparent">×</button>
-    </span>`).join("");
-}
-function escapeHtml(s=""){ return s.replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m])); }
-function deleteWord(i){ if(confirm("Wort wirklich löschen?")) { words.splice(i,1); save(); } }
-function addWord() {
-  const en = document.getElementById("newEnglish").value.trim();
-  const de = document.getElementById("newGerman").value.trim();
-  const ex = document.getElementById("newExample").value.trim() || `This is ${en}.`;
-  if (!en || !de) return alert("Bitte englisches Wort und deutsche Bedeutung eingeben.");
-  words.push({en,de,ex,score:0,seen:0});
-  ["newEnglish","newGerman","newExample"].forEach(id=>document.getElementById(id).value="");
-  save();
-}
-function makeRecognition(onResult, lang="en-US") {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {
-    alert("Direkte Spracherkennung ist in diesem Browser nicht verfügbar. Auf dem iPhone kannst du stattdessen die Mikrofon-Taste der Tastatur zum Diktieren benutzen.");
-    return;
-  }
-  const r = new SR();
-  r.lang = lang;
-  r.interimResults = false;
-  r.maxAlternatives = 1;
-  r.onresult = e => onResult(e.results[0][0].transcript);
-  r.onerror = () => alert("Spracherkennung hat nicht geklappt. Bitte noch einmal probieren.");
+function recognize(cb){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert("Direkte Spracherkennung ist hier nicht verfügbar. Nutze auf dem iPhone die Mikrofon-Taste der Tastatur.");return;}
+  const r=new SR();r.lang="en-US";r.interimResults=false;r.maxAlternatives=1;
+  r.onresult=e=>cb(e.results[0][0].transcript);
+  r.onerror=()=>alert("Spracherkennung hat nicht geklappt.");
   r.start();
 }
-function startDictation(){ makeRecognition(t => document.getElementById("newEnglish").value = t); }
-function startAnswerDictation(){ makeRecognition(t => document.getElementById("spokenAnswer").value = t); }
+function openWords(){showOnly("wordsPage");renderWords()}
+function renderWords(){
+  const box=document.getElementById("wordsList");
+  if(!words.length){box.innerHTML="<span class='tiny'>Noch keine Wörter.</span>";return;}
+  box.innerHTML=words.map((w,i)=>`
+    <div class="sentence" style="font-size:1rem">
+      <strong>${esc(w.en)}</strong> – ${esc(w.de)}<br>
+      <span class="tiny">${esc(w.enSentence)}</span><br>
+      <span class="tiny">${esc(w.deSentence)}</span>
+      <button class="ghost" style="width:auto;padding:7px 10px" onclick="deleteWord(${i})">Löschen</button>
+    </div>`).join("");
+}
+function saveNewWord(){
+  const en=v("enInput"),de=v("deInput"),es=v("enSentenceInput"),ds=v("deSentenceInput");
+  if(!en||!de||!es||!ds){alert("Bitte alle vier Felder ausfüllen.");return;}
+  words.push({en,de,enSentence:es,deSentence:ds,level:0,seen:0});
+  ["enInput","deInput","enSentenceInput","deSentenceInput"].forEach(id=>document.getElementById(id).value="");
+  persist();renderWords();
+}
+function dictateWord(){recognize(t=>document.getElementById("enInput").value=t)}
+function deleteWord(i){if(confirm("Wort wirklich löschen?")){words.splice(i,1);persist();renderWords()}}
+function v(id){return document.getElementById(id).value.trim()}
+function esc(s=""){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
 
-function startTraining(){ trainingStep=0; showOnly("training"); renderTraining(); }
-function renderTraining() {
-  const phase = phases[trainingStep];
-  document.getElementById("phaseTitle").textContent = phase.title;
-  document.getElementById("bar").style.width = ((trainingStep+1)/phases.length*100)+"%";
-  const c = document.getElementById("trainingContent");
-  const w = words[trainingStep % Math.max(words.length,1)] || starterWords[0];
+function startLesson(){
+  if(!words.length){alert("Bitte zuerst mindestens ein Wort speichern.");openWords();return;}
+  // Schwierige Wörter (niedriges level) öfter nach vorne.
+  const sorted=[...words].sort((a,b)=>(a.level||0)-(b.level||0));
+  lessonQueue=[];
+  // 6 Karten: 3 Wort/Satz + 2 Sprechen + Abschluss
+  const picks=[];
+  for(let i=0;i<Math.min(3,sorted.length);i++) picks.push(sorted[i]);
+  while(picks.length<3) picks.push(sorted[picks.length%sorted.length]);
+  picks.forEach(w=>lessonQueue.push({type:"word",word:w}));
+  lessonQueue.push({type:"speak",prompt:prompts[Math.floor(Math.random()*prompts.length)]});
+  lessonQueue.push({type:"speak",prompt:prompts[Math.floor(Math.random()*prompts.length)]});
+  lessonQueue.push({type:"finish"});
+  lessonIndex=0;showOnly("lesson");renderLesson();
+}
+function renderLesson(){
+  const item=lessonQueue[lessonIndex];
+  document.getElementById("lessonCounter").textContent=`Schritt ${lessonIndex+1} von ${lessonQueue.length}`;
+  document.getElementById("progressBar").style.width=((lessonIndex)/lessonQueue.length*100)+"%";
+  const body=document.getElementById("lessonBody");
 
-  if (phase.type==="review") {
-    c.innerHTML = `
-      <h2>Wiederholen</h2>
-      <div class="word">${escapeHtml(w.en)}</div>
-      <div class="translation">${escapeHtml(w.de)}</div>
-      <div class="example">${escapeHtml(w.ex)}</div>
-      <button class="secondary" onclick='say(${JSON.stringify(w.en)})'>🔊 Wort hören</button>
-      <button class="secondary" onclick='say(${JSON.stringify(w.ex)})'>🔊 Satz hören</button>
-      <p>Sprich Wort und Satz jeweils zweimal laut nach.</p>
-      <button class="primary" onclick="nextTraining()">Weiter</button>`;
-  }
-  if (phase.type==="sentences") {
-    const samples = words.slice(0,3).map(x=>x.ex).join(" ");
-    c.innerHTML = `
-      <h2>Kurze Sätze</h2>
-      <p>Höre zu, sprich nach und bilde danach selbst einen kleinen Satz.</p>
-      <div class="example">${escapeHtml(samples || "I am learning English.")}</div>
-      <button class="secondary" onclick='say(${JSON.stringify(samples || "I am learning English.")})'>🔊 Alles vorlesen</button>
-      <textarea id="ownSentence" rows="3" placeholder="Dein eigener Satz (optional)"></textarea>
-      <button class="primary" onclick="nextTraining()">Weiter</button>`;
-  }
-  if (phase.type==="speaking") {
-    c.innerHTML = `
-      <h2>Mini-Dialog</h2>
-      <p>Jetzt zählt Sprechen mehr als Perfektion.</p>
-      <button class="primary" onclick="openSpeaking()">Zum Mini-Dialog</button>
-      <button class="secondary" onclick="nextTraining()">Danach hier weiter</button>`;
-  }
-  if (phase.type==="mistakes") {
-    const recent = mistakes.slice(-5);
-    c.innerHTML = `
-      <h2>Fehlertraining</h2>
-      ${recent.length ? recent.map(m=>`<div class="example warn">${escapeHtml(m)}</div>`).join("") : "<div class='example ok'>Noch keine Fehler gespeichert. Gut – dann wiederholen wir ein bekanntes Wort.</div>"}
-      <p class="tiny">Später kann die App daraus automatisch die nächste Einheit zusammenstellen.</p>
-      <button class="primary" onclick="nextTraining()">Weiter</button>`;
-  }
-  if (phase.type==="finish") {
-    c.innerHTML = `
-      <h2>Fertig für heute</h2>
-      <div class="example ok">20-Minuten-Routine abgeschlossen.</div>
-      <p>Wichtig: regelmäßig sprechen, nicht perfekt sein.</p>
-      <button class="primary" onclick="goHome()">Zur Startseite</button>`;
+  if(item.type==="word"){
+    const w=item.word;
+    document.getElementById("phaseName").textContent="Hören · verstehen · sprechen";
+    body.innerHTML=`
+      <div class="word">${esc(w.en)}</div>
+      <div class="meaning">${esc(w.de)}</div>
+      <div class="sentence">${esc(w.enSentence)}</div>
+      <button class="secondary full" onclick='say(${JSON.stringify(w.enSentence)})'>🔊 Satz hören</button>
+      <button class="ghost full" id="trBtn" onclick="toggleTranslation(${JSON.stringify(w.deSentence)})">🇩🇪 Deutsch anzeigen</button>
+      <div id="translationBox" class="translation hidden"></div>
+      <div class="divider"></div>
+      <p><strong>Sprich den englischen Satz zweimal laut nach.</strong></p>
+      <div class="row">
+        <button class="secondary" onclick="rateWord(false)">Noch unsicher</button>
+        <button class="primary" onclick="rateWord(true)">Verstanden</button>
+      </div>`;
+  }else if(item.type==="speak"){
+    const p=item.prompt;
+    document.getElementById("phaseName").textContent="Sprechen";
+    body.innerHTML=`
+      <div class="sentence">${esc(p.en)}</div>
+      <button class="secondary full" onclick='say(${JSON.stringify(p.en)})'>🔊 Frage hören</button>
+      <button class="ghost full" onclick='toggleTranslation(${JSON.stringify(p.de)})'>🇩🇪 Deutsch anzeigen</button>
+      <div id="translationBox" class="translation hidden"></div>
+      <textarea id="lessonAnswer" rows="3" placeholder="Antworte auf Englisch – tippen oder diktieren"></textarea>
+      <div class="row">
+        <button class="secondary" onclick="recognize(t=>document.getElementById('lessonAnswer').value=t)">🎤 Antworten</button>
+        <button class="primary" onclick="nextLesson()">Weiter</button>
+      </div>
+      <p class="tiny">Hier zählt, dass du sprichst. Die App bewertet deine Grammatik nicht künstlich.</p>`;
+  }else{
+    document.getElementById("phaseName").textContent="Fertig";
+    document.getElementById("progressBar").style.width="100%";
+    stats.done=(stats.done||0)+1;persist();
+    body.innerHTML=`
+      <div class="center">
+        <div class="metric">✓</div>
+        <h2>Einheit abgeschlossen</h2>
+        <p>Heute hast du Wörter wiederholt, Sätze verstanden und selbst gesprochen.</p>
+        <button class="primary full" onclick="goHome()">Zur Startseite</button>
+      </div>`;
   }
 }
-function nextTraining(){ if(trainingStep < phases.length-1){ trainingStep++; renderTraining(); } else goHome(); }
+function toggleTranslation(text){
+  const box=document.getElementById("translationBox");
+  if(!box)return;
+  if(box.classList.contains("hidden")){box.textContent=text;box.classList.remove("hidden")}
+  else box.classList.add("hidden");
+}
+function rateWord(ok){
+  const item=lessonQueue[lessonIndex], w=item.word;
+  const original=words.find(x=>x.en===w.en && x.de===w.de);
+  if(original){
+    original.seen=(original.seen||0)+1;
+    original.level=Math.max(0,(original.level||0)+(ok?1:-1));
+  }
+  persist();nextLesson();
+}
+function nextLesson(){if(lessonIndex<lessonQueue.length-1){lessonIndex++;renderLesson()}else{goHome()}}
 
-function openSpeaking(){ showOnly("speaking"); resetDialogue(); }
-function resetDialogue(){ dialogueIndex=0; document.getElementById("feedback").innerHTML=""; document.getElementById("spokenAnswer").value=""; showDialoguePrompt(); }
-function showDialoguePrompt(){
-  const topic = document.getElementById("topic").value;
-  const arr = dialogues[topic];
-  currentDialoguePrompt = arr[dialogueIndex % arr.length];
-  document.getElementById("dialogueBox").innerHTML = `<strong>${escapeHtml(currentDialoguePrompt)}</strong>`;
+function openPractice(){showOnly("practicePage");nextFreePrompt()}
+function nextFreePrompt(){
+  currentFree=prompts[Math.floor(Math.random()*prompts.length)];
+  document.getElementById("freePrompt").textContent=currentFree.en;
+  document.getElementById("freeTranslation").textContent=currentFree.de;
+  document.getElementById("freeTranslation").classList.add("hidden");
+  document.getElementById("freeAnswer").value="";
 }
-function speakDialoguePrompt(){ say(currentDialoguePrompt); }
-function checkAnswer(){
-  const ans = document.getElementById("spokenAnswer").value.trim();
-  if(!ans) return alert("Sag oder schreibe zuerst eine kurze Antwort.");
-  const wordCount = ans.split(/\s+/).filter(Boolean).length;
-  let msg = "";
-  if(wordCount < 2){
-    msg = "Versuche einen ganzen kleinen Satz, z. B. mit „I …“, „It is …“ oder „I like …“.";
-    mistakes.push(`Kurze Antwort bei: ${currentDialoguePrompt}`);
-  } else {
-    msg = "Gut. Sprich deine Antwort jetzt noch einmal laut. Danach kommt die nächste Frage.";
-  }
-  save();
-  document.getElementById("feedback").innerHTML = `<div class="example ${wordCount<2?"warn":"ok"}">${escapeHtml(msg)}</div>`;
-  dialogueIndex++;
-  document.getElementById("spokenAnswer").value="";
-  showDialoguePrompt();
+function speakFreePrompt(){if(currentFree)say(currentFree.en)}
+function toggleFreeTranslation(){
+  const e=document.getElementById("freeTranslation");
+  e.classList.toggle("hidden");
 }
+function dictateAnswer(){recognize(t=>document.getElementById("freeAnswer").value=t)}
 
-function openListening(){ showOnly("listening"); listenIndex=0; renderListen(); }
-function renderListen(){
-  if(!words.length) return document.getElementById("listenWord").innerHTML = "Noch keine Wörter.";
-  const w = words[listenIndex % words.length];
-  document.getElementById("listenWord").innerHTML = `
-    <div class="word">${escapeHtml(w.en)}</div>
-    <div class="translation">${escapeHtml(w.de)}</div>
-    <div class="example">${escapeHtml(w.ex)}</div>`;
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 }
-function speakCurrentListen(){
-  if(!words.length) return;
-  const w=words[listenIndex % words.length];
-  say(`${w.en}. ${w.ex}`);
-}
-function nextListen(){ listenIndex++; renderListen(); }
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-}
-renderWordList();
 </script>
 </body>
 </html>

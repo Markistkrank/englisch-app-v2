@@ -1,36 +1,20 @@
-# Englisch App V2
+# Englisch App V2 – verbesserte Version
 
-Neue, bewusst einfache Lern-App für 20-Minuten-Einheiten.
+Diese Version ist bewusst einfacher und stärker geführt.
 
-## Ziel
-- klare tägliche Routine statt vieler Menüs
-- Hören und Sprechen im Mittelpunkt
-- eigene Wörter per Tastatur oder Diktat
-- lokale Speicherung im Browser
-- keine Cloud-Datenbank
-- keine externen APIs
+## Was neu ist
+- Deutsch wird bei Sätzen erst auf Wunsch eingeblendet.
+- Die 20-Minuten-Einheit ist der Hauptweg durch die App.
+- Schwierige Wörter können häufiger wiederkommen.
+- Freies Sprechen ist zusätzlich verfügbar.
+- Neue Wörter speichern immer vier Dinge:
+  1. Englisch
+  2. Deutsch
+  3. englischer Beispielsatz
+  4. deutsche Satzübersetzung
+- Eigene Wörter bleiben lokal im Browser.
+- Neues App-Symbol `EN`.
+- Service-Worker-Cache wurde auf Version 3 erhöht, damit Änderungen leichter ankommen.
 
-## Start
-Die App enthält drei Testwörter:
-- wind
-- board
-- water
-
-## 20-Minuten-Ablauf
-1. Wiederholen – ca. 4 Min.
-2. Neue Sätze – ca. 5 Min.
-3. Sprechen – ca. 7 Min.
-4. Fehlertraining – ca. 3 Min.
-5. Abschluss – ca. 1 Min.
-
-## GitHub Pages
-Alle Dateien in ein neues Repository hochladen, z. B. `englisch-app-v2`.
-Danach GitHub Pages für den Branch `main` und den Ordner `/root` aktivieren.
-
-## Datenschutz
-Eigene Wörter und Fehler werden nur in `localStorage` des jeweiligen Browsers gespeichert.
-Sie werden nicht automatisch nach GitHub hochgeladen.
-
-## Hinweis zur Spracheingabe
-Die direkte Web-Spracherkennung funktioniert nicht in jedem Browser gleich gut.
-Auf dem iPhone kann als sichere Alternative die Mikrofon-Taste der iOS-Tastatur zum Diktieren verwendet werden.
+## GitHub
+Die Dateien im Repository `englisch-app-v2` durch diese Version ersetzen bzw. ergänzen.
