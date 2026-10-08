@@ -1,0 +1,9 @@
+{
+  "name": "Englisch App V2",
+  "short_name": "Englisch V2",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f7f8",
+  "theme_color": "#ffffff",
+  "icons": []
+}

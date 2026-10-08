@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Englisch App V2</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    :root {
+      --bg: #f7f7f8;
+      --card: #ffffff;
+      --text: #171717;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --ok: #e8f7ee;
+      --warn: #fff7df;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 18px; }
+    h1 { font-size: 1.75rem; margin: 8px 0 4px; }
+    h2 { font-size: 1.2rem; margin-top: 0; }
+    .sub { color: var(--muted); margin-bottom: 18px; }
+    .grid { display: grid; gap: 12px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-weight: 650;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .primary { background: #111827; color: white; }
+    .secondary { background: #eef2f7; color: #111827; }
+    .small { width: auto; padding: 10px 12px; font-size: .95rem; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 1rem;
+      background: white;
+    }
+    .hidden { display: none !important; }
+    .progress {
+      height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden;
+      margin: 10px 0 16px;
+    }
+    .progress > div { height: 100%; background: #111827; width: 0%; transition: width .25s; }
+    .word { font-size: 2rem; font-weight: 750; margin: 10px 0 4px; }
+    .translation { color: var(--muted); font-size: 1.1rem; }
+    .example { background: #f3f4f6; border-radius: 12px; padding: 12px; margin-top: 12px; }
+    .ok { background: var(--ok); }
+    .warn { background: var(--warn); }
+    .tiny { font-size: .9rem; color: var(--muted); }
+    .pill {
+      display: inline-block; padding: 6px 10px; border-radius: 999px;
+      background: #eef2f7; margin: 4px 4px 0 0; font-size: .9rem;
+    }
+    .topnav { display: flex; gap: 8px; margin-bottom: 12px; }
+    .topnav button { margin: 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Englisch App V2</h1>
+    <div class="sub">Einfach. 20 Minuten. Viel hören und sprechen.</div>
+
+    <section id="home" class="grid">
+      <div class="card">
+        <h2>Heute lernen</h2>
+        <p>Geführte 20-Minuten-Einheit mit Wiederholung, Sätzen, Sprechen und Fehlertraining.</p>
+        <button class="primary" onclick="startTraining()">20-Minuten-Training starten</button>
+      </div>
+
+      <div class="card">
+        <h2>Sprechen</h2>
+        <p>Kurze Mini-Dialoge: Alltag, Restaurant, Hotel, Reisen, Sport und mehr.</p>
+        <button class="secondary" onclick="openSpeaking()">Mini-Dialog starten</button>
+      </div>
+
+      <div class="card">
+        <h2>Nur hören</h2>
+        <p>Wörter und einfache Sätze vorlesen lassen.</p>
+        <button class="secondary" onclick="openListening()">Hörmodus öffnen</button>
+      </div>
+
+      <div class="card">
+        <h2>Wort hinzufügen</h2>
+        <input id="newEnglish" placeholder="Englisches Wort" />
+        <input id="newGerman" placeholder="Deutsche Bedeutung" style="margin-top:8px" />
+        <input id="newExample" placeholder="Einfacher Beispielsatz (optional)" style="margin-top:8px" />
+        <div class="row">
+          <button class="small secondary" onclick="startDictation()">🎤 Sprechen</button>
+          <button class="small primary" onclick="addWord()">Speichern</button>
+        </div>
+        <p class="tiny">Alle Wörter bleiben nur lokal in diesem Browser gespeichert.</p>
+      </div>
+
+      <div class="card">
+        <h2>Meine Wörter</h2>
+        <div id="wordList"></div>
+      </div>
+    </section>
+
+    <section id="training" class="hidden">
+      <div class="topnav">
+        <button class="small secondary" onclick="goHome()">← Zurück</button>
+      </div>
+      <div class="card">
+        <div id="phaseTitle" class="tiny"></div>
+        <div class="progress"><div id="bar"></div></div>
+        <div id="trainingContent"></div>
+      </div>
+    </section>
+
+    <section id="speaking" class="hidden">
+      <div class="topnav">
+        <button class="small secondary" onclick="goHome()">← Zurück</button>
+      </div>
+      <div class="card">
+        <h2>Mini-Dialog</h2>
+        <label for="topic">Thema</label>
+        <select id="topic" onchange="resetDialogue()">
+          <option value="daily">Alltag</option>
+          <option value="restaurant">Restaurant</option>
+          <option value="hotel">Hotel</option>
+          <option value="travel">Reisen</option>
+          <option value="sport">Sport</option>
+          <option value="surf">Windsurfen</option>
+        </select>
+        <div id="dialogueBox" class="example" style="margin-top:14px"></div>
+        <button class="secondary" onclick="speakDialoguePrompt()">🔊 Frage vorlesen</button>
+        <textarea id="spokenAnswer" rows="3" placeholder="Deine Antwort – tippen oder diktieren"></textarea>
+        <div class="row">
+          <button class="small secondary" onclick="startAnswerDictation()">🎤 Antworten</button>
+          <button class="small primary" onclick="checkAnswer()">Weiter</button>
+        </div>
+        <div id="feedback" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <section id="listening" class="hidden">
+      <div class="topnav">
+        <button class="small secondary" onclick="goHome()">← Zurück</button>
+      </div>
+      <div class="card">
+        <h2>Nur hören</h2>
+        <p>Tippe auf „Vorlesen“. Die App liest Wort, Übersetzung und Beispielsatz.</p>
+        <div id="listenWord"></div>
+        <button class="primary" onclick="speakCurrentListen()">🔊 Vorlesen</button>
+        <button class="secondary" onclick="nextListen()">Nächstes Wort</button>
+      </div>
+    </section>
+  </div>
+
+<script>
+const starterWords = [
+  {en:"wind", de:"Wind", ex:"The wind is strong.", score:0, seen:0},
+  {en:"board", de:"Brett", ex:"This is my board.", score:0, seen:0},
+  {en:"water", de:"Wasser", ex:"The water is cold.", score:0, seen:0}
+];
+
+let words = JSON.parse(localStorage.getItem("englishV2_words") || "null") || starterWords;
+let mistakes = JSON.parse(localStorage.getItem("englishV2_mistakes") || "[]");
+let trainingStep = 0;
+let listenIndex = 0;
+let dialogueIndex = 0;
+let currentDialoguePrompt = "";
+
+const phases = [
+  {title:"1. Wiederholen · ca. 4 Minuten", type:"review"},
+  {title:"2. Neue Sätze · ca. 5 Minuten", type:"sentences"},
+  {title:"3. Sprechen · ca. 7 Minuten", type:"speaking"},
+  {title:"4. Fehlertraining · ca. 3 Minuten", type:"mistakes"},
+  {title:"5. Abschluss · ca. 1 Minute", type:"finish"}
+];
+
+const dialogues = {
+  daily: [
+    "How are you today?",
+    "What did you do this morning?",
+    "What are you doing tomorrow?"
+  ],
+  restaurant: [
+    "What would you like to drink?",
+    "What would you like to eat?",
+    "Was everything okay?"
+  ],
+  hotel: [
+    "Do you have a reservation?",
+    "How many nights are you staying?",
+    "What time would you like breakfast?"
+  ],
+  travel: [
+    "Where are you going?",
+    "How are you travelling?",
+    "What do you want to see there?"
+  ],
+  sport: [
+    "What sport do you like?",
+    "How often do you train?",
+    "Why do you like this sport?"
+  ],
+  surf: [
+    "How is the wind today?",
+    "Which board do you use?",
+    "What do you want to practise today?"
+  ]
+};
+
+function save() {
+  localStorage.setItem("englishV2_words", JSON.stringify(words));
+  localStorage.setItem("englishV2_mistakes", JSON.stringify(mistakes));
+  renderWordList();
+}
+function showOnly(id) {
+  ["home","training","speaking","listening"].forEach(x => document.getElementById(x).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+function goHome(){ showOnly("home"); renderWordList(); }
+function say(text, lang="en-US") {
+  if (!("speechSynthesis" in window)) return alert("Vorlesen wird auf diesem Gerät nicht unterstützt.");
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  u.rate = 0.82;
+  speechSynthesis.speak(u);
+}
+function renderWordList() {
+  const box = document.getElementById("wordList");
+  if (!words.length) { box.innerHTML = "<span class='tiny'>Noch keine Wörter.</span>"; return; }
+  box.innerHTML = words.map((w,i)=>`
+    <span class="pill">${escapeHtml(w.en)} · ${escapeHtml(w.de)}
+      <button aria-label="löschen" onclick="deleteWord(${i})" style="width:auto;margin:0 0 0 5px;padding:2px 6px;background:transparent">×</button>
+    </span>`).join("");
+}
+function escapeHtml(s=""){ return s.replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m])); }
+function deleteWord(i){ if(confirm("Wort wirklich löschen?")) { words.splice(i,1); save(); } }
+function addWord() {
+  const en = document.getElementById("newEnglish").value.trim();
+  const de = document.getElementById("newGerman").value.trim();
+  const ex = document.getElementById("newExample").value.trim() || `This is ${en}.`;
+  if (!en || !de) return alert("Bitte englisches Wort und deutsche Bedeutung eingeben.");
+  words.push({en,de,ex,score:0,seen:0});
+  ["newEnglish","newGerman","newExample"].forEach(id=>document.getElementById(id).value="");
+  save();
+}
+function makeRecognition(onResult, lang="en-US") {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    alert("Direkte Spracherkennung ist in diesem Browser nicht verfügbar. Auf dem iPhone kannst du stattdessen die Mikrofon-Taste der Tastatur zum Diktieren benutzen.");
+    return;
+  }
+  const r = new SR();
+  r.lang = lang;
+  r.interimResults = false;
+  r.maxAlternatives = 1;
+  r.onresult = e => onResult(e.results[0][0].transcript);
+  r.onerror = () => alert("Spracherkennung hat nicht geklappt. Bitte noch einmal probieren.");
+  r.start();
+}
+function startDictation(){ makeRecognition(t => document.getElementById("newEnglish").value = t); }
+function startAnswerDictation(){ makeRecognition(t => document.getElementById("spokenAnswer").value = t); }
+
+function startTraining(){ trainingStep=0; showOnly("training"); renderTraining(); }
+function renderTraining() {
+  const phase = phases[trainingStep];
+  document.getElementById("phaseTitle").textContent = phase.title;
+  document.getElementById("bar").style.width = ((trainingStep+1)/phases.length*100)+"%";
+  const c = document.getElementById("trainingContent");
+  const w = words[trainingStep % Math.max(words.length,1)] || starterWords[0];
+
+  if (phase.type==="review") {
+    c.innerHTML = `
+      <h2>Wiederholen</h2>
+      <div class="word">${escapeHtml(w.en)}</div>
+      <div class="translation">${escapeHtml(w.de)}</div>
+      <div class="example">${escapeHtml(w.ex)}</div>
+      <button class="secondary" onclick='say(${JSON.stringify(w.en)})'>🔊 Wort hören</button>
+      <button class="secondary" onclick='say(${JSON.stringify(w.ex)})'>🔊 Satz hören</button>
+      <p>Sprich Wort und Satz jeweils zweimal laut nach.</p>
+      <button class="primary" onclick="nextTraining()">Weiter</button>`;
+  }
+  if (phase.type==="sentences") {
+    const samples = words.slice(0,3).map(x=>x.ex).join(" ");
+    c.innerHTML = `
+      <h2>Kurze Sätze</h2>
+      <p>Höre zu, sprich nach und bilde danach selbst einen kleinen Satz.</p>
+      <div class="example">${escapeHtml(samples || "I am learning English.")}</div>
+      <button class="secondary" onclick='say(${JSON.stringify(samples || "I am learning English.")})'>🔊 Alles vorlesen</button>
+      <textarea id="ownSentence" rows="3" placeholder="Dein eigener Satz (optional)"></textarea>
+      <button class="primary" onclick="nextTraining()">Weiter</button>`;
+  }
+  if (phase.type==="speaking") {
+    c.innerHTML = `
+      <h2>Mini-Dialog</h2>
+      <p>Jetzt zählt Sprechen mehr als Perfektion.</p>
+      <button class="primary" onclick="openSpeaking()">Zum Mini-Dialog</button>
+      <button class="secondary" onclick="nextTraining()">Danach hier weiter</button>`;
+  }
+  if (phase.type==="mistakes") {
+    const recent = mistakes.slice(-5);
+    c.innerHTML = `
+      <h2>Fehlertraining</h2>
+      ${recent.length ? recent.map(m=>`<div class="example warn">${escapeHtml(m)}</div>`).join("") : "<div class='example ok'>Noch keine Fehler gespeichert. Gut – dann wiederholen wir ein bekanntes Wort.</div>"}
+      <p class="tiny">Später kann die App daraus automatisch die nächste Einheit zusammenstellen.</p>
+      <button class="primary" onclick="nextTraining()">Weiter</button>`;
+  }
+  if (phase.type==="finish") {
+    c.innerHTML = `
+      <h2>Fertig für heute</h2>
+      <div class="example ok">20-Minuten-Routine abgeschlossen.</div>
+      <p>Wichtig: regelmäßig sprechen, nicht perfekt sein.</p>
+      <button class="primary" onclick="goHome()">Zur Startseite</button>`;
+  }
+}
+function nextTraining(){ if(trainingStep < phases.length-1){ trainingStep++; renderTraining(); } else goHome(); }
+
+function openSpeaking(){ showOnly("speaking"); resetDialogue(); }
+function resetDialogue(){ dialogueIndex=0; document.getElementById("feedback").innerHTML=""; document.getElementById("spokenAnswer").value=""; showDialoguePrompt(); }
+function showDialoguePrompt(){
+  const topic = document.getElementById("topic").value;
+  const arr = dialogues[topic];
+  currentDialoguePrompt = arr[dialogueIndex % arr.length];
+  document.getElementById("dialogueBox").innerHTML = `<strong>${escapeHtml(currentDialoguePrompt)}</strong>`;
+}
+function speakDialoguePrompt(){ say(currentDialoguePrompt); }
+function checkAnswer(){
+  const ans = document.getElementById("spokenAnswer").value.trim();
+  if(!ans) return alert("Sag oder schreibe zuerst eine kurze Antwort.");
+  const wordCount = ans.split(/\s+/).filter(Boolean).length;
+  let msg = "";
+  if(wordCount < 2){
+    msg = "Versuche einen ganzen kleinen Satz, z. B. mit „I …“, „It is …“ oder „I like …“.";
+    mistakes.push(`Kurze Antwort bei: ${currentDialoguePrompt}`);
+  } else {
+    msg = "Gut. Sprich deine Antwort jetzt noch einmal laut. Danach kommt die nächste Frage.";
+  }
+  save();
+  document.getElementById("feedback").innerHTML = `<div class="example ${wordCount<2?"warn":"ok"}">${escapeHtml(msg)}</div>`;
+  dialogueIndex++;
+  document.getElementById("spokenAnswer").value="";
+  showDialoguePrompt();
+}
+
+function openListening(){ showOnly("listening"); listenIndex=0; renderListen(); }
+function renderListen(){
+  if(!words.length) return document.getElementById("listenWord").innerHTML = "Noch keine Wörter.";
+  const w = words[listenIndex % words.length];
+  document.getElementById("listenWord").innerHTML = `
+    <div class="word">${escapeHtml(w.en)}</div>
+    <div class="translation">${escapeHtml(w.de)}</div>
+    <div class="example">${escapeHtml(w.ex)}</div>`;
+}
+function speakCurrentListen(){
+  if(!words.length) return;
+  const w=words[listenIndex % words.length];
+  say(`${w.en}. ${w.ex}`);
+}
+function nextListen(){ listenIndex++; renderListen(); }
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+}
+renderWordList();
+</script>
+</body>
+</html>
