@@ -1,330 +1,66 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#111827" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Englisch" />
-  <link rel="apple-touch-icon" href="icon-192.png" />
-  <link rel="manifest" href="manifest.webmanifest" />
-  <title>Englisch – 20 Minuten</title>
-  <style>
-    :root{
-      --bg:#f5f7fb; --card:#fff; --text:#16181d; --muted:#667085;
-      --line:#e6eaf0; --dark:#111827; --soft:#eef2f7; --good:#eaf8ef; --warn:#fff6dc;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    }
-    .wrap{max-width:720px;margin:0 auto;padding:18px 16px 40px}
-    h1{font-size:1.7rem;margin:8px 0 3px}
-    h2{font-size:1.18rem;margin:0 0 8px}
-    p{line-height:1.45}
-    .sub{color:var(--muted);margin-bottom:18px}
-    .card{
-      background:var(--card); border:1px solid var(--line); border-radius:20px;
-      padding:17px; margin-bottom:12px; box-shadow:0 2px 10px rgba(17,24,39,.04);
-    }
-    .hero{padding:20px}
-    .hero .big{font-size:1.22rem;font-weight:750;margin-bottom:6px}
-    .tiny{font-size:.9rem;color:var(--muted)}
-    .hidden{display:none!important}
-    button{
-      border:0;border-radius:14px;padding:13px 15px;font-size:1rem;font-weight:700;
-      cursor:pointer;margin-top:8px
-    }
-    .full{width:100%}
-    .primary{background:var(--dark);color:#fff}
-    .secondary{background:var(--soft);color:var(--text)}
-    .ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
-    .row{display:flex;gap:8px;flex-wrap:wrap}
-    .row button{flex:1;min-width:130px}
-    input,textarea,select{
-      width:100%;border:1px solid var(--line);border-radius:13px;padding:12px;
-      font:inherit;background:#fff;margin-top:7px
-    }
-    .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-    .top button{width:auto;margin:0;padding:9px 12px}
-    .progress{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin:10px 0 14px}
-    .progress>div{height:100%;background:var(--dark);width:0%;transition:width .2s}
-    .word{font-size:2.25rem;font-weight:800;margin:8px 0 0}
-    .meaning{font-size:1.08rem;color:var(--muted);margin:2px 0 14px}
-    .sentence{font-size:1.24rem;font-weight:720;line-height:1.4;padding:14px;border-radius:14px;background:#f3f5f8;margin:10px 0}
-    .translation{padding:13px;border-radius:14px;background:#eef7ff;margin-top:8px}
-    .good{background:var(--good)}
-    .warn{background:var(--warn)}
-    .pill{display:inline-block;padding:6px 10px;background:#eef2f7;border-radius:999px;margin:4px 4px 0 0}
-    .navgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .navgrid button{margin:0}
-    .phase{font-weight:750}
-    .answerbox{margin-top:12px}
-    .metric{font-size:1.7rem;font-weight:800}
-    .center{text-align:center}
-    .divider{height:1px;background:var(--line);margin:14px 0}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#101217">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Englisch">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Englisch – Wort für Wort</title>
+<style>
+:root{--bg1:#0f1117;--bg2:#1a1f29;--card:#171b23;--card2:#1d2330;--text:#f7f8fb;--muted:#b1b7c4;--line:#303746;--accent:#d6b36a;--accent2:#f0d89b;--good:#173d2a;--bad:#472426;--info:#1a3249}
+*{box-sizing:border-box}body{margin:0;color:var(--text);background:linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}.wrap{max-width:760px;margin:0 auto;padding:18px 16px 48px}h1{font-size:1.75rem;margin:6px 0 4px}h2{font-size:1.15rem;margin:0 0 8px}p{line-height:1.5}.muted{color:var(--muted)}.card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:20px;padding:17px;margin-bottom:12px;box-shadow:0 12px 30px rgba(0,0,0,.18)}button{border:0;border-radius:14px;padding:13px 15px;font-size:1rem;font-weight:750;cursor:pointer}.primary{background:var(--accent);color:#17120a}.secondary{background:#252c39;color:var(--text);border:1px solid var(--line)}.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}.danger{background:#45272a;color:#fff}.full{width:100%}.row{display:flex;gap:8px;flex-wrap:wrap}.row button{flex:1;min-width:140px}.navgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}input,textarea{width:100%;border:1px solid var(--line);border-radius:13px;padding:12px;font:inherit;color:var(--text);background:#10141c;margin-top:8px}input::placeholder,textarea::placeholder{color:#7e8797}.hidden{display:none!important}.progress{height:10px;background:#2b313d;border-radius:999px;overflow:hidden;margin:10px 0 14px}.progress>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width .2s}.bigword{font-size:2.35rem;font-weight:850;margin:10px 0 3px}.sentence{font-size:1.2rem;font-weight:720;line-height:1.45;padding:14px;border-radius:14px;background:#10141c;margin:10px 0;border:1px solid #262e3b}.feedback{padding:12px;border-radius:14px;margin-top:10px}.ok{background:var(--good)}.bad{background:var(--bad)}.info{background:var(--info)}.topline{display:flex;justify-content:space-between;gap:8px;align-items:center}.counter{font-weight:800}.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#2b313d;color:var(--accent2);font-size:.9rem}.stepdot{font-size:.92rem;color:var(--muted);margin-bottom:6px}.vocab{padding:12px;border-radius:14px;background:#111720;border:1px solid var(--line);margin-top:8px}.small{font-size:.9rem}
+</style>
 </head>
-<body>
-<div class="wrap">
-  <section id="home">
-    <h1>Englisch</h1>
-    <div class="sub">20 Minuten am Tag – hören, verstehen, sprechen, wiederholen.</div>
-
-    <div class="card hero">
-      <div class="big">Heute lernen</div>
-      <div class="tiny">Eine geführte Einheit. Keine Menü-Suche, einfach anfangen.</div>
-      <button class="primary full" onclick="startLesson()">20-Minuten-Einheit starten</button>
-    </div>
-
-    <div class="navgrid">
-      <button class="secondary" onclick="openWords()">Meine Wörter</button>
-      <button class="secondary" onclick="openPractice()">Frei sprechen</button>
-    </div>
-
-    <div class="card" style="margin-top:12px">
-      <h2>So lernst du hier</h2>
-      <p class="tiny">Englisch zuerst. Deutsch erst auf Wunsch. Schwierige Wörter kommen häufiger wieder. Sprechen ist wichtiger als perfektes Tippen.</p>
-    </div>
-  </section>
-
-  <section id="lesson" class="hidden">
-    <div class="top">
-      <button class="ghost" onclick="goHome()">← Zurück</button>
-      <div class="tiny" id="lessonCounter"></div>
-    </div>
-    <div class="card">
-      <div class="phase" id="phaseName"></div>
-      <div class="progress"><div id="progressBar"></div></div>
-      <div id="lessonBody"></div>
-    </div>
-  </section>
-
-  <section id="wordsPage" class="hidden">
-    <div class="top">
-      <button class="ghost" onclick="goHome()">← Zurück</button>
-      <div class="tiny">Wortschatz</div>
-    </div>
-
-    <div class="card">
-      <h2>Neues Wort</h2>
-      <input id="enInput" placeholder="Englisches Wort, z. B. strong" />
-      <input id="deInput" placeholder="Deutsch, z. B. stark" />
-      <input id="enSentenceInput" placeholder="Englischer Satz, z. B. The wind is strong." />
-      <input id="deSentenceInput" placeholder="Deutsche Übersetzung, z. B. Der Wind ist stark." />
-      <div class="row">
-        <button class="secondary" onclick="dictateWord()">🎤 Wort sprechen</button>
-        <button class="primary" onclick="saveNewWord()">Speichern</button>
-      </div>
-      <p class="tiny">Gespeichert wird nur auf diesem Gerät.</p>
-    </div>
-
-    <div class="card">
-      <h2>Meine Wörter</h2>
-      <div id="wordsList"></div>
-    </div>
-  </section>
-
-  <section id="practicePage" class="hidden">
-    <div class="top">
-      <button class="ghost" onclick="goHome()">← Zurück</button>
-      <div class="tiny">Sprechen</div>
-    </div>
-    <div class="card">
-      <h2>Kurze Frage</h2>
-      <div class="sentence" id="freePrompt"></div>
-      <button class="secondary full" onclick="speakFreePrompt()">🔊 Frage hören</button>
-      <button class="ghost full" id="freeTranslationBtn" onclick="toggleFreeTranslation()">🇩🇪 Deutsch anzeigen</button>
-      <div id="freeTranslation" class="translation hidden"></div>
-
-      <div class="answerbox">
-        <textarea id="freeAnswer" rows="3" placeholder="Antworte auf Englisch – tippen oder diktieren"></textarea>
-        <div class="row">
-          <button class="secondary" onclick="dictateAnswer()">🎤 Antworten</button>
-          <button class="primary" onclick="nextFreePrompt()">Nächste Frage</button>
-        </div>
-      </div>
-    </div>
-  </section>
+<body><div class="wrap">
+<section id="home"><h1>Englisch</h1><p class="muted">Nicht nach Zeit. Ziel: 6 neue Wörter – wenn du willst bis 10.</p><div class="card"><div class="topline"><div><div class="counter" id="homeProgress">0 von 6 geschafft</div><div class="muted small">Heute maximal 10 neue Wörter</div></div><span class="badge">Heute</span></div><div class="progress"><div id="homeBar"></div></div><button class="primary full" id="startBtn" onclick="startOrContinue()">Lernen starten</button></div><div class="navgrid"><button class="secondary" onclick="openVocab()">Meine Vokabeln</button><button class="secondary" onclick="showPlan()">Ablauf ansehen</button></div><div class="card" style="margin-top:12px"><h2>Heute geschafft</h2><div id="doneList" class="muted">Noch kein Wort.</div></div></section>
+<section id="learn" class="hidden"><div class="topline"><button class="ghost" onclick="goHome()">← Zurück</button><div class="counter" id="wordCounter">Wort 1</div></div><div class="card"><div class="stepdot" id="stepLabel">Schritt 1 von 5</div><div class="progress"><div id="stepBar"></div></div><div id="content"></div></div></section>
+<section id="vocabPage" class="hidden"><div class="topline"><button class="ghost" onclick="goHome()">← Zurück</button><div class="counter">Meine Vokabeln</div></div><div class="card"><h2>Wort merken</h2><p class="muted small">Hier kannst du Wörter sammeln, die du noch nicht kennst.</p><input id="vocabEn" placeholder="Englisches Wort"><input id="vocabDe" placeholder="Deutsche Bedeutung – kann auch später kommen"><textarea id="vocabNote" rows="2" placeholder="Notiz, z. B. aus welchem Buch oder Satz"></textarea><button class="primary full" style="margin-top:10px" onclick="addVocab()">Speichern</button></div><div class="card"><h2>Gespeicherte Wörter</h2><div id="vocabList"></div></div></section>
+<section id="planPage" class="hidden"><div class="topline"><button class="ghost" onclick="goHome()">← Zurück</button><div class="counter">Lernablauf</div></div><div class="card"><h2>Ein Wort in 5 Schritten</h2><p class="muted">1. Englisches Wort sehen und die deutsche Bedeutung eingeben.<br>2. Wort anhören und nachsprechen.<br>3. Beispielsatz anhören und nachsprechen.<br>4. Beispielsatz selbst ins Deutsche übersetzen.<br>5. Mit einer sicheren Satzvorgabe selbst einen englischen Satz bilden.</p></div></section>
 </div>
-
 <script>
-const starterWords = [
-  {en:"wind",de:"Wind",enSentence:"The wind is strong.",deSentence:"Der Wind ist stark.",level:0,seen:0},
-  {en:"board",de:"Brett",enSentence:"This is my board.",deSentence:"Das ist mein Brett.",level:0,seen:0},
-  {en:"water",de:"Wasser",enSentence:"The water is cold.",deSentence:"Das Wasser ist kalt.",level:0,seen:0}
+const WORDS=[
+{en:"strong",de:["stark","kräftig"],sentence:"The wind is strong.",sentenceDe:["Der Wind ist stark.","Der Wind ist kräftig."],template:"The ___ is strong.",options:["man","wind","coffee"],answers:["The man is strong.","The wind is strong."],templateDe:["Der Mann ist stark.","Der Wind ist stark."]},
+{en:"water",de:["Wasser"],sentence:"The water is cold.",sentenceDe:["Das Wasser ist kalt."],template:"I drink ___.",options:["water","book","house"],answers:["I drink water."],templateDe:["Ich trinke Wasser."]},
+{en:"board",de:["Brett","Board"],sentence:"This is my board.",sentenceDe:["Das ist mein Brett.","Das ist mein Board."],template:"This is my ___.",options:["board","wind","water"],answers:["This is my board."],templateDe:["Das ist mein Brett."]},
+{en:"happy",de:["glücklich","froh"],sentence:"I am happy today.",sentenceDe:["Ich bin heute glücklich.","Ich bin heute froh."],template:"I am ___ today.",options:["happy","board","water"],answers:["I am happy today."],templateDe:["Ich bin heute glücklich."]},
+{en:"friend",de:["Freund","Freundin"],sentence:"My friend is here.",sentenceDe:["Mein Freund ist hier.","Meine Freundin ist hier."],template:"My ___ is here.",options:["friend","weather","water"],answers:["My friend is here."],templateDe:["Mein Freund ist hier."]},
+{en:"learn",de:["lernen"],sentence:"I learn English every day.",sentenceDe:["Ich lerne jeden Tag Englisch."],template:"I ___ English.",options:["learn","drink","board"],answers:["I learn English."],templateDe:["Ich lerne Englisch."]},
+{en:"house",de:["Haus"],sentence:"The house is very old.",sentenceDe:["Das Haus ist sehr alt."],template:"The ___ is old.",options:["house","morning","travel"],answers:["The house is old."],templateDe:["Das Haus ist alt."]},
+{en:"morning",de:["Morgen"],sentence:"I drink coffee in the morning.",sentenceDe:["Ich trinke morgens Kaffee.","Ich trinke am Morgen Kaffee."],template:"Good ___.",options:["morning","house","friend"],answers:["Good morning."],templateDe:["Guten Morgen."]},
+{en:"travel",de:["reisen","Reise"],sentence:"I like to travel.",sentenceDe:["Ich reise gern.","Ich mag es zu reisen."],template:"I like to ___.",options:["travel","strong","morning"],answers:["I like to travel."],templateDe:["Ich reise gern."]},
+{en:"weather",de:["Wetter"],sentence:"The weather is good today.",sentenceDe:["Das Wetter ist heute gut."],template:"The ___ is good today.",options:["weather","friend","board"],answers:["The weather is good today."],templateDe:["Das Wetter ist heute gut."]}
 ];
-
-const prompts = [
-  {en:"How are you today?",de:"Wie geht es dir heute?"},
-  {en:"What did you do this morning?",de:"Was hast du heute Morgen gemacht?"},
-  {en:"What are you doing tomorrow?",de:"Was machst du morgen?"},
-  {en:"What would you like to drink?",de:"Was möchtest du trinken?"},
-  {en:"What would you like to eat?",de:"Was möchtest du essen?"},
-  {en:"Do you have a reservation?",de:"Hast du eine Reservierung?"},
-  {en:"How many nights are you staying?",de:"Wie viele Nächte bleibst du?"},
-  {en:"Where are you going?",de:"Wohin fährst du?"},
-  {en:"What do you want to see there?",de:"Was möchtest du dort sehen?"},
-  {en:"What sport do you like?",de:"Welche Sportart magst du?"},
-  {en:"How often do you train?",de:"Wie oft trainierst du?"},
-  {en:"How is the wind today?",de:"Wie ist der Wind heute?"},
-  {en:"Which board do you use?",de:"Welches Brett benutzt du?"}
-];
-
-let words = JSON.parse(localStorage.getItem("english_v2_words") || "null") || starterWords;
-let stats = JSON.parse(localStorage.getItem("english_v2_stats") || '{"done":0}');
-let lessonQueue = [];
-let lessonIndex = 0;
-let currentFree = null;
-
-function persist(){
-  localStorage.setItem("english_v2_words",JSON.stringify(words));
-  localStorage.setItem("english_v2_stats",JSON.stringify(stats));
-}
-
-function showOnly(id){
-  ["home","lesson","wordsPage","practicePage"].forEach(x=>document.getElementById(x).classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-}
-function goHome(){showOnly("home")}
-function say(text){
-  if(!("speechSynthesis" in window)){alert("Vorlesen wird hier nicht unterstützt.");return;}
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u);
-}
-function recognize(cb){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert("Direkte Spracherkennung ist hier nicht verfügbar. Nutze auf dem iPhone die Mikrofon-Taste der Tastatur.");return;}
-  const r=new SR();r.lang="en-US";r.interimResults=false;r.maxAlternatives=1;
-  r.onresult=e=>cb(e.results[0][0].transcript);
-  r.onerror=()=>alert("Spracherkennung hat nicht geklappt.");
-  r.start();
-}
-function openWords(){showOnly("wordsPage");renderWords()}
-function renderWords(){
-  const box=document.getElementById("wordsList");
-  if(!words.length){box.innerHTML="<span class='tiny'>Noch keine Wörter.</span>";return;}
-  box.innerHTML=words.map((w,i)=>`
-    <div class="sentence" style="font-size:1rem">
-      <strong>${esc(w.en)}</strong> – ${esc(w.de)}<br>
-      <span class="tiny">${esc(w.enSentence)}</span><br>
-      <span class="tiny">${esc(w.deSentence)}</span>
-      <button class="ghost" style="width:auto;padding:7px 10px" onclick="deleteWord(${i})">Löschen</button>
-    </div>`).join("");
-}
-function saveNewWord(){
-  const en=v("enInput"),de=v("deInput"),es=v("enSentenceInput"),ds=v("deSentenceInput");
-  if(!en||!de||!es||!ds){alert("Bitte alle vier Felder ausfüllen.");return;}
-  words.push({en,de,enSentence:es,deSentence:ds,level:0,seen:0});
-  ["enInput","deInput","enSentenceInput","deSentenceInput"].forEach(id=>document.getElementById(id).value="");
-  persist();renderWords();
-}
-function dictateWord(){recognize(t=>document.getElementById("enInput").value=t)}
-function deleteWord(i){if(confirm("Wort wirklich löschen?")){words.splice(i,1);persist();renderWords()}}
-function v(id){return document.getElementById(id).value.trim()}
-function esc(s=""){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
-
-function startLesson(){
-  if(!words.length){alert("Bitte zuerst mindestens ein Wort speichern.");openWords();return;}
-  // Schwierige Wörter (niedriges level) öfter nach vorne.
-  const sorted=[...words].sort((a,b)=>(a.level||0)-(b.level||0));
-  lessonQueue=[];
-  // 6 Karten: 3 Wort/Satz + 2 Sprechen + Abschluss
-  const picks=[];
-  for(let i=0;i<Math.min(3,sorted.length);i++) picks.push(sorted[i]);
-  while(picks.length<3) picks.push(sorted[picks.length%sorted.length]);
-  picks.forEach(w=>lessonQueue.push({type:"word",word:w}));
-  lessonQueue.push({type:"speak",prompt:prompts[Math.floor(Math.random()*prompts.length)]});
-  lessonQueue.push({type:"speak",prompt:prompts[Math.floor(Math.random()*prompts.length)]});
-  lessonQueue.push({type:"finish"});
-  lessonIndex=0;showOnly("lesson");renderLesson();
-}
-function renderLesson(){
-  const item=lessonQueue[lessonIndex];
-  document.getElementById("lessonCounter").textContent=`Schritt ${lessonIndex+1} von ${lessonQueue.length}`;
-  document.getElementById("progressBar").style.width=((lessonIndex)/lessonQueue.length*100)+"%";
-  const body=document.getElementById("lessonBody");
-
-  if(item.type==="word"){
-    const w=item.word;
-    document.getElementById("phaseName").textContent="Hören · verstehen · sprechen";
-    body.innerHTML=`
-      <div class="word">${esc(w.en)}</div>
-      <div class="meaning">${esc(w.de)}</div>
-      <div class="sentence">${esc(w.enSentence)}</div>
-      <button class="secondary full" onclick='say(${JSON.stringify(w.enSentence)})'>🔊 Satz hören</button>
-      <button class="ghost full" id="trBtn" onclick="toggleTranslation(${JSON.stringify(w.deSentence)})">🇩🇪 Deutsch anzeigen</button>
-      <div id="translationBox" class="translation hidden"></div>
-      <div class="divider"></div>
-      <p><strong>Sprich den englischen Satz zweimal laut nach.</strong></p>
-      <div class="row">
-        <button class="secondary" onclick="rateWord(false)">Noch unsicher</button>
-        <button class="primary" onclick="rateWord(true)">Verstanden</button>
-      </div>`;
-  }else if(item.type==="speak"){
-    const p=item.prompt;
-    document.getElementById("phaseName").textContent="Sprechen";
-    body.innerHTML=`
-      <div class="sentence">${esc(p.en)}</div>
-      <button class="secondary full" onclick='say(${JSON.stringify(p.en)})'>🔊 Frage hören</button>
-      <button class="ghost full" onclick='toggleTranslation(${JSON.stringify(p.de)})'>🇩🇪 Deutsch anzeigen</button>
-      <div id="translationBox" class="translation hidden"></div>
-      <textarea id="lessonAnswer" rows="3" placeholder="Antworte auf Englisch – tippen oder diktieren"></textarea>
-      <div class="row">
-        <button class="secondary" onclick="recognize(t=>document.getElementById('lessonAnswer').value=t)">🎤 Antworten</button>
-        <button class="primary" onclick="nextLesson()">Weiter</button>
-      </div>
-      <p class="tiny">Hier zählt, dass du sprichst. Die App bewertet deine Grammatik nicht künstlich.</p>`;
-  }else{
-    document.getElementById("phaseName").textContent="Fertig";
-    document.getElementById("progressBar").style.width="100%";
-    stats.done=(stats.done||0)+1;persist();
-    body.innerHTML=`
-      <div class="center">
-        <div class="metric">✓</div>
-        <h2>Einheit abgeschlossen</h2>
-        <p>Heute hast du Wörter wiederholt, Sätze verstanden und selbst gesprochen.</p>
-        <button class="primary full" onclick="goHome()">Zur Startseite</button>
-      </div>`;
-  }
-}
-function toggleTranslation(text){
-  const box=document.getElementById("translationBox");
-  if(!box)return;
-  if(box.classList.contains("hidden")){box.textContent=text;box.classList.remove("hidden")}
-  else box.classList.add("hidden");
-}
-function rateWord(ok){
-  const item=lessonQueue[lessonIndex], w=item.word;
-  const original=words.find(x=>x.en===w.en && x.de===w.de);
-  if(original){
-    original.seen=(original.seen||0)+1;
-    original.level=Math.max(0,(original.level||0)+(ok?1:-1));
-  }
-  persist();nextLesson();
-}
-function nextLesson(){if(lessonIndex<lessonQueue.length-1){lessonIndex++;renderLesson()}else{goHome()}}
-
-function openPractice(){showOnly("practicePage");nextFreePrompt()}
-function nextFreePrompt(){
-  currentFree=prompts[Math.floor(Math.random()*prompts.length)];
-  document.getElementById("freePrompt").textContent=currentFree.en;
-  document.getElementById("freeTranslation").textContent=currentFree.de;
-  document.getElementById("freeTranslation").classList.add("hidden");
-  document.getElementById("freeAnswer").value="";
-}
-function speakFreePrompt(){if(currentFree)say(currentFree.en)}
-function toggleFreeTranslation(){
-  const e=document.getElementById("freeTranslation");
-  e.classList.toggle("hidden");
-}
-function dictateAnswer(){recognize(t=>document.getElementById("freeAnswer").value=t)}
-
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-}
-</script>
-</body>
-</html>
+const DAILY_TARGET=6,DAILY_MAX=10;let state=loadState(),vocab=JSON.parse(localStorage.getItem("english_vocab_box")||"[]"),currentIndex=0,currentWord=WORDS[0],step=1;
+function dayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function loadState(){const raw=JSON.parse(localStorage.getItem("english_v02_state")||"null");return(!raw||raw.day!==dayKey())?{day:dayKey(),done:[],retry:[]}:raw}
+function saveState(){localStorage.setItem("english_v02_state",JSON.stringify(state))}function saveVocab(){localStorage.setItem("english_vocab_box",JSON.stringify(vocab))}
+function normalize(s){return(s||"").trim().toLowerCase().replace(/[.,!?;:]/g,"").replace(/\s+/g," ")}
+function approxMatch(input,accepted){const x=normalize(input);return accepted.some(a=>{const y=normalize(a);if(x===y)return true;const xa=new Set(x.split(" ")),ya=new Set(y.split(" "));let o=0;ya.forEach(w=>{if(xa.has(w))o++});return ya.size>0&&o/ya.size>=.75})}
+function say(text){if(!("speechSynthesis" in window)){alert("Vorlesen wird auf diesem Gerät nicht unterstützt.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u)}
+function show(id){["home","learn","vocabPage","planPage"].forEach(x=>document.getElementById(x).classList.add("hidden"));document.getElementById(id).classList.remove("hidden")}
+function goHome(){show("home");renderHome()}function showPlan(){show("planPage")}
+function renderHome(){document.getElementById("homeProgress").textContent=`${state.done.length} von ${DAILY_TARGET} geschafft`;document.getElementById("homeBar").style.width=`${Math.min(100,state.done.length/DAILY_TARGET*100)}%`;const names=state.done.map(i=>WORDS[i]?.en).filter(Boolean);document.getElementById("doneList").textContent=names.length?names.join(" · "):"Noch kein Wort.";const btn=document.getElementById("startBtn");btn.textContent=state.done.length>=DAILY_MAX?"Tagesmaximum geschafft":state.done.length>=DAILY_TARGET?"Noch ein Wort lernen":state.done.length>0?"Weiterlernen":"Lernen starten"}
+function nextWordIndex(){if(state.retry.length){const i=state.retry.shift();if(!state.done.includes(i))return i}for(let i=0;i<WORDS.length;i++)if(!state.done.includes(i))return i;return-1}
+function startOrContinue(){if(state.done.length>=DAILY_MAX){alert("Du hast heute 10 Wörter geschafft.");return}currentIndex=nextWordIndex();if(currentIndex===-1){alert("Alle Beispielwörter sind geschafft.");return}currentWord=WORDS[currentIndex];step=1;show("learn");renderStep()}
+function renderStep(){document.getElementById("wordCounter").textContent=`Wort ${state.done.length+1}`;document.getElementById("stepLabel").textContent=`Schritt ${step} von 5`;document.getElementById("stepBar").style.width=`${step/5*100}%`;const c=document.getElementById("content"),w=currentWord;
+if(step===1)c.innerHTML=`<div class="bigword">${w.en}</div><p>Was heißt dieses Wort auf Deutsch?</p><input id="a1" placeholder="Deutsche Übersetzung"><button class="primary full" style="margin-top:10px" onclick="checkMeaning()">Prüfen</button><div id="fb"></div>`;
+if(step===2)c.innerHTML=`<div class="bigword">${w.en}</div><p>Hör dir das Wort an und sprich es zweimal laut nach.</p><button class="secondary full" onclick='say(${JSON.stringify(w.en)})'>🔊 Wort anhören</button><button class="primary full" style="margin-top:10px" onclick="nextStep()">Weiter</button>`;
+if(step===3)c.innerHTML=`<p class="muted">Beispielsatz</p><div class="sentence">${w.sentence}</div><p>Hör zu und sprich den Satz zweimal nach.</p><button class="secondary full" onclick='say(${JSON.stringify(w.sentence)})'>🔊 Satz anhören</button><button class="primary full" style="margin-top:10px" onclick="nextStep()">Weiter</button>`;
+if(step===4)c.innerHTML=`<div class="sentence">${w.sentence}</div><p>Übersetze den Satz ins Deutsche.</p><textarea id="a4" rows="3" placeholder="Deine deutsche Übersetzung"></textarea><button class="primary full" style="margin-top:10px" onclick="checkTranslation()">Prüfen</button><div id="fb"></div>`;
+if(step===5)c.innerHTML=`<p class="muted">Jetzt selbst einen Satz bauen</p><div class="sentence">${w.template}</div><p>Wähle ein passendes Wort und schreibe den ganzen Satz.</p><div class="row">${w.options.map(o=>`<button class="secondary" onclick="fillOption('${o}')">${o}</button>`).join("")}</div><textarea id="a5" rows="3" placeholder="Dein englischer Satz"></textarea><button class="primary full" style="margin-top:10px" onclick="checkOwnSentence()">Satz prüfen</button><div id="fb"></div>`}
+function fb(html,cls="info"){document.getElementById("fb").innerHTML=`<div class="feedback ${cls}">${html}</div>`}
+function checkMeaning(){const v=document.getElementById("a1").value;if(!v.trim())return;if(approxMatch(v,currentWord.de))fb(`✅ Richtig: <strong>${currentWord.de[0]}</strong><br><button class="primary full" style="margin-top:10px" onclick="nextStep()">Weiter</button>`,"ok");else{if(!state.retry.includes(currentIndex))state.retry.push(currentIndex);saveState();fb(`Noch nicht. Richtig ist: <strong>${currentWord.de[0]}</strong><br><button class="secondary full" style="margin-top:10px" onclick="nextStep()">Merken und weiter</button>`,"bad")}}
+function checkTranslation(){const v=document.getElementById("a4").value;if(!v.trim())return;if(approxMatch(v,currentWord.sentenceDe))fb(`✅ Passt. Zum Beispiel: <strong>${currentWord.sentenceDe[0]}</strong><br><button class="primary full" style="margin-top:10px" onclick="nextStep()">Weiter</button>`,"ok");else{if(!state.retry.includes(currentIndex))state.retry.push(currentIndex);saveState();fb(`Noch nicht ganz. Eine gute Übersetzung ist:<br><strong>${currentWord.sentenceDe[0]}</strong><br><button class="secondary full" style="margin-top:10px" onclick="nextStep()">Merken und weiter</button>`,"bad")}}
+function fillOption(o){const box=document.getElementById("a5");if(currentWord.template.includes("___"))box.value=currentWord.template.replace("___",o)}
+function checkOwnSentence(){const v=document.getElementById("a5").value.trim();if(!v)return;const i=currentWord.answers.findIndex(a=>normalize(a)===normalize(v));if(i>=0)fb(`✅ Richtig.<br><strong>${v}</strong><br>Deutsch: <strong>${currentWord.templateDe[i]||currentWord.templateDe[0]}</strong><br><button class="primary full" style="margin-top:10px" onclick="finishWord()">Wort geschafft</button>`,"ok");else fb(`Noch nicht passend zu unserer Satzvorgabe.<br>Ein richtiger Beispielsatz wäre:<br><strong>${currentWord.answers[0]}</strong><br>Deutsch: <strong>${currentWord.templateDe[0]}</strong><br><button class="secondary full" style="margin-top:10px" onclick="clearOwn()">Noch einmal versuchen</button>`,"bad")}
+function clearOwn(){document.getElementById("a5").value="";document.getElementById("fb").innerHTML=""}function nextStep(){step++;renderStep()}
+function finishWord(){if(!state.done.includes(currentIndex))state.done.push(currentIndex);state.retry=state.retry.filter(x=>x!==currentIndex);saveState();document.getElementById("content").innerHTML=`<div class="feedback ok"><h2>✅ Wort geschafft</h2><p><strong>${currentWord.en}</strong> ist für heute abgeschlossen.</p></div><div class="row" style="margin-top:12px"><button class="secondary" onclick="repeatWord()">↻ Noch einmal</button><button class="primary" onclick="nextWord()">→ Nächstes Wort</button></div>`;document.getElementById("stepLabel").textContent="Geschafft";document.getElementById("stepBar").style.width="100%"}
+function repeatWord(){state.done=state.done.filter(x=>x!==currentIndex);saveState();step=1;renderStep()}
+function nextWord(){if(state.done.length>=DAILY_MAX){goHome();return}if(state.done.length>=DAILY_TARGET){if(!confirm(`Du hast dein Tagesziel von ${DAILY_TARGET} Wörtern geschafft. Noch ein Wort lernen?`)){goHome();return}}currentIndex=nextWordIndex();if(currentIndex===-1){goHome();return}currentWord=WORDS[currentIndex];step=1;renderStep()}
+function openVocab(){show("vocabPage");renderVocab()}function addVocab(){const en=document.getElementById("vocabEn").value.trim(),de=document.getElementById("vocabDe").value.trim(),note=document.getElementById("vocabNote").value.trim();if(!en){alert("Bitte mindestens das englische Wort eingeben.");return}vocab.unshift({en,de,note});saveVocab();document.getElementById("vocabEn").value="";document.getElementById("vocabDe").value="";document.getElementById("vocabNote").value="";renderVocab()}
+function renderVocab(){const box=document.getElementById("vocabList");if(!vocab.length){box.innerHTML='<div class="muted">Noch keine eigenen Wörter gespeichert.</div>';return}box.innerHTML=vocab.map((v,i)=>`<div class="vocab"><strong>${esc(v.en)}</strong><div class="muted">${v.de?esc(v.de):"Bedeutung noch offen"}</div>${v.note?`<div class="small" style="margin-top:6px">${esc(v.note)}</div>`:""}<div class="row" style="margin-top:10px"><button class="secondary" onclick='say(${JSON.stringify(v.en)})'>🔊 Anhören</button><button class="danger" onclick="removeVocab(${i})">Löschen</button></div></div>`).join("")}
+function removeVocab(i){if(confirm("Dieses Wort löschen?")){vocab.splice(i,1);saveVocab();renderVocab()}}function esc(s=""){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+renderHome();
+</script></body></html>

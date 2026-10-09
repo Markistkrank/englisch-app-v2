@@ -1,20 +1,16 @@
-# Englisch App V2 – verbesserte Version
+# Englisch-App V0.2
 
-Diese Version ist bewusst einfacher und stärker geführt.
+Aktuellste Version nach unserem letzten Gespräch.
 
-## Was neu ist
-- Deutsch wird bei Sätzen erst auf Wunsch eingeblendet.
-- Die 20-Minuten-Einheit ist der Hauptweg durch die App.
-- Schwierige Wörter können häufiger wiederkommen.
-- Freies Sprechen ist zusätzlich verfügbar.
-- Neue Wörter speichern immer vier Dinge:
-  1. Englisch
-  2. Deutsch
-  3. englischer Beispielsatz
-  4. deutsche Satzübersetzung
-- Eigene Wörter bleiben lokal im Browser.
-- Neues App-Symbol `EN`.
-- Service-Worker-Cache wurde auf Version 3 erhöht, damit Änderungen leichter ankommen.
-
-## GitHub
-Die Dateien im Repository `englisch-app-v2` durch diese Version ersetzen bzw. ergänzen.
+- dunkler, ruhiger Hintergrund
+- Tagesziel 6 neue Wörter, freiwillig bis 10
+- kein Zeitdruck
+- Wort übersetzen und prüfen
+- Wort anhören und nachsprechen
+- Beispielsatz anhören und nachsprechen
+- Beispielsatz ins Deutsche übersetzen und prüfen
+- eigenen Satz mit sicherer Satzvorgabe bilden und prüfen
+- deutsche Bedeutung des eigenen Satzes anzeigen
+- „Meine Vokabeln“ für unbekannte Wörter
+- keine KI und keine laufenden API-Kosten
+- lokale Speicherung im Browser
