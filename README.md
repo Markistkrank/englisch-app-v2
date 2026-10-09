@@ -1,16 +1,20 @@
-# Englisch-App V0.2
+# Englisch-App V0.4
 
-Aktuellste Version nach unserem letzten Gespräch.
+Neu in dieser Version:
+- 49 eingebaute A1-Lernwörter statt nur weniger Testwörter
+- tägliche Reihenfolge wird gemischt, damit nicht immer dieselben Wörter zuerst kommen
+- nach 6 Wörtern erscheint wirklich eine Auswahl:
+  - Für heute fertig
+  - Noch ein Wort
+- danach kannst du weiterlernen, solange noch Wörter im eingebauten Wortschatz vorhanden sind
+- kein harter Stopp bei 10
+- eigener Vokabelbereich bleibt erhalten
+- weiterhin ohne KI/API-Kosten
+- dunkles Design bleibt erhalten
 
-- dunkler, ruhiger Hintergrund
-- Tagesziel 6 neue Wörter, freiwillig bis 10
-- kein Zeitdruck
-- Wort übersetzen und prüfen
-- Wort anhören und nachsprechen
-- Beispielsatz anhören und nachsprechen
-- Beispielsatz ins Deutsche übersetzen und prüfen
-- eigenen Satz mit sicherer Satzvorgabe bilden und prüfen
-- deutsche Bedeutung des eigenen Satzes anzeigen
-- „Meine Vokabeln“ für unbekannte Wörter
-- keine KI und keine laufenden API-Kosten
-- lokale Speicherung im Browser
+Pro Wort:
+1. deutsche Bedeutung eintippen
+2. Wort anhören und nachsprechen
+3. Beispielsatz anhören und nachsprechen
+4. Satz ins Deutsche übersetzen
+5. sicheren englischen Satz selbst bilden
