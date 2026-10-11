@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Englisch">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Englisch V0.5</title>
+<title>Englisch V0.6</title>
 <style>
 :root{--bg:#0f1218;--card:#171c25;--card2:#1c2330;--text:#f7f8fb;--muted:#aeb6c4;--line:#313a49;--accent:#d9b66f;--accent2:#f1d998;--good:#173d2a;--bad:#4a2528;--info:#19344f}
 *{box-sizing:border-box} body{margin:0;min-height:100vh;color:var(--text);background:linear-gradient(160deg,#0d1015,#1a202a);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
@@ -20,7 +20,7 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:13px;paddin
 .bigword{font-size:2.4rem;font-weight:850;margin:8px 0 2px}.sentence{font-size:1.2rem;font-weight:720;line-height:1.45;padding:14px;border-radius:14px;background:#0f141c;border:1px solid #2a3341;margin:10px 0}
 .feedback{padding:12px;border-radius:14px;margin-top:10px}.ok{background:var(--good)}.bad{background:var(--bad)}.info{background:var(--info)}.topline{display:flex;justify-content:space-between;gap:8px;align-items:center}.counter{font-weight:800}.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#2b313d;color:var(--accent2);font-size:.9rem}.stepdot{font-size:.92rem;color:var(--muted);margin-bottom:6px}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chip{background:#2b3442;color:#fff;border:1px solid #465164;padding:10px 12px}.answerline{min-height:54px;padding:12px;border-radius:14px;background:#0f141c;border:1px dashed #556176;margin:10px 0}
-.choice{width:100%;text-align:left;margin-top:8px}.vocab{padding:12px;border-radius:14px;background:#101720;border:1px solid var(--line);margin-top:8px}.version{font-size:.78rem;color:#7e8795;text-align:center;margin-top:18px}
+.choice{width:100%;text-align:left;margin-top:8px}.vocab{padding:12px;border-radius:14px;background:#101720;border:1px solid var(--line);margin-top:8px}.formlabel{display:block;font-weight:700;color:var(--muted);margin-top:12px}.formhint{font-size:.88rem;color:var(--muted);margin:8px 0}.note{font-size:.9rem;color:var(--muted);margin-top:7px}.practice-prompt{font-size:1.55rem;font-weight:800;line-height:1.45;overflow-wrap:anywhere}.vocab strong{overflow-wrap:anywhere}.version{font-size:.78rem;color:#7e8795;text-align:center;margin-top:18px}
 </style>
 </head>
 <body><div class="wrap">
@@ -33,9 +33,10 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:13px;paddin
 <div class="progress"><div id="homeBar"></div></div>
 <button class="primary full" id="startBtn" onclick="startOrContinue()">Lernen starten</button>
 </div>
-<div class="navgrid"><button class="secondary" onclick="openVocab()">Meine Vokabeln</button><button class="secondary" onclick="showPlan()">Ablauf ansehen</button></div>
+<div class="navgrid"><button class="secondary" onclick="openVocab()">➕ Meine Vokabeln</button><button class="secondary" onclick="showPlan()">Ablauf ansehen</button></div>
+<div class="navgrid" style="margin-top:10px"><button class="primary" onclick="startOwnPractice('words')">📝 Meine Wörter üben</button><button class="primary" onclick="startOwnPractice('sentences')">💬 Meine Sätze üben</button></div>
 <div class="card" style="margin-top:12px"><h2>Heute geschafft</h2><div id="doneList" class="muted">Noch kein Wort.</div></div>
-<div class="version">Version 0.5 · 250 allgemeine A1-Wörter</div>
+<div class="version">Version 0.6 · 250 allgemeine A1-Wörter</div>
 </section>
 
 <section id="learn" class="hidden">
@@ -57,15 +58,69 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:13px;paddin
 </section>
 
 <section id="vocabPage" class="hidden">
-<div class="topline"><button class="ghost" onclick="goHome()">← Zurück</button><div class="counter">Meine Vokabeln</div></div>
+<div class="topline"><button class="ghost" onclick="goHome()">← Zurück</button><div class="counter">Meine Vokabeln & Sätze</div></div>
 <div class="card">
-<h2>Unbekanntes Wort speichern</h2>
-<input id="vocabEn" placeholder="Englisches Wort">
-<input id="vocabDe" placeholder="Deutsche Bedeutung (optional)">
-<textarea id="vocabNote" rows="2" placeholder="Notiz, z. B. aus dem Buch"></textarea>
-<button class="primary full" style="margin-top:10px" onclick="addVocab()">Speichern</button>
+<h2>➕ Eigenes Wort speichern</h2>
+<label class="formlabel" for="vocabEn">Englisches Wort</label>
+<input id="vocabEn" placeholder="z. B. if" autocomplete="off">
+<label class="formlabel" for="vocabDe">Deutsche Bedeutung</label>
+<input id="vocabDe" placeholder="z. B. wenn" autocomplete="off">
+<p class="formhint">Optional: Ergänze einen Beispielsatz in beiden Sprachen.</p>
+<label class="formlabel" for="vocabSentenceEn">Beispielsatz Englisch</label>
+<textarea id="vocabSentenceEn" rows="2" placeholder="If it rains, I stay at home."></textarea>
+<label class="formlabel" for="vocabSentenceDe">Beispielsatz Deutsch</label>
+<textarea id="vocabSentenceDe" rows="2" placeholder="Wenn es regnet, bleibe ich zu Hause."></textarea>
+<label class="formlabel" for="vocabNote">Notiz (optional)</label>
+<textarea id="vocabNote" rows="2" placeholder="z. B. aus meinem Englischbuch"></textarea>
+<button id="vocabSaveButton" class="primary full" style="margin-top:10px" onclick="addVocab()">💾 Wort speichern</button>
+<button id="vocabCancelButton" class="ghost full hidden" style="margin-top:8px" onclick="cancelVocabEdit()">Bearbeiten abbrechen</button>
+<div id="vocabStatus" class="note" role="status"></div>
 </div>
-<div class="card"><h2>Gespeicherte Wörter</h2><div id="vocabList"></div></div>
+<div class="card">
+<h2>💬 Eigenen Satz speichern</h2>
+<p class="formhint">Hier kannst du auch einen Satz ohne zusätzliches Vokabelwort speichern.</p>
+<label class="formlabel" for="ownSentenceEn">Satz auf Englisch</label>
+<textarea id="ownSentenceEn" rows="3" placeholder="They are my friends."></textarea>
+<label class="formlabel" for="ownSentenceDe">Satz auf Deutsch</label>
+<textarea id="ownSentenceDe" rows="3" placeholder="Sie sind meine Freunde."></textarea>
+<button id="ownSentenceSaveButton" class="primary full" style="margin-top:10px" onclick="saveOwnSentence()">💾 Satz speichern</button>
+<button id="ownSentenceCancelButton" class="ghost full hidden" style="margin-top:8px" onclick="cancelSentenceEdit()">Bearbeiten abbrechen</button>
+<div id="ownSentenceStatus" class="note" role="status"></div>
+</div>
+<div class="card">
+<h2>🔁 Eigene Einträge wiederholen</h2>
+<div class="navgrid"><button class="secondary" onclick="startOwnPractice('words')">Wörter üben</button><button class="secondary" onclick="startOwnPractice('sentences')">Sätze üben</button></div>
+<p class="formhint">Du übst nur deine eigenen Einträge. Zum Abfragen benötigen Wörter auch eine deutsche Bedeutung.</p>
+</div>
+<div class="card"><h2 id="vocabListTitle">Gespeicherte Wörter</h2><div id="vocabList"></div></div>
+<div class="card"><h2 id="sentenceListTitle">Gespeicherte Sätze</h2><div id="sentenceList"></div></div>
+<div class="card"><h2>💾 Sicherung deiner Lerninhalte</h2>
+<p class="formhint">Die Daten bleiben auf diesem Gerät im Browser gespeichert. Vor einem Update am besten eine Sicherung herunterladen. Bitte dieselbe App-Adresse weiterverwenden und keine Website-Daten löschen.</p>
+<div class="row"><button class="secondary" onclick="downloadBackup()">⬇️ Sicherung herunterladen</button><button class="secondary" onclick="document.getElementById('backupFile').click()">⬆️ Sicherung laden</button></div>
+<input id="backupFile" class="hidden" type="file" accept="application/json,.json" onchange="restoreBackup(event)">
+</div>
+</section>
+
+<section id="ownPracticePage" class="hidden">
+<div class="topline"><button class="ghost" onclick="goHome()">← Zurück</button><div id="ownPracticeCount" class="counter">Eigene Wörter</div></div>
+<div class="card">
+<h2 id="ownPracticeTitle">Meine Wörter üben</h2>
+<div class="progress"><div id="ownPracticeBar"></div></div>
+<p class="muted" id="ownPracticeDirection">Übersetze den Begriff.</p>
+<div class="sentence practice-prompt" id="ownPracticePrompt"></div>
+<div id="ownPracticeTask">
+<label class="formlabel" for="ownPracticeAnswer">Deine Übersetzung</label>
+<textarea id="ownPracticeAnswer" rows="2" placeholder="Hier antworten"></textarea>
+<div class="row" style="margin-top:10px"><button class="primary" onclick="checkOwnPractice()">✅ Prüfen</button><button class="secondary" onclick="revealOwnPractice()">👀 Lösung zeigen</button></div>
+<div id="ownPracticeFeedback" role="status"></div>
+<div id="ownPracticeRating" class="row hidden" style="margin-top:10px"><button class="primary" onclick="rateOwnPractice(true)">✅ Das konnte ich</button><button class="secondary" onclick="rateOwnPractice(false)">🔁 Noch üben</button></div>
+<button class="secondary full" style="margin-top:10px" id="ownPracticeListen" onclick="listenOwnPractice()">🔊 Englisch anhören</button>
+</div>
+<div id="ownPracticeFinished" class="hidden">
+<p id="ownPracticeSummary"></p>
+<div class="row"><button class="secondary" onclick="goHome()">Zur Startseite</button><button class="primary" onclick="startOwnPractice(ownPractice.mode)">Noch einmal üben</button></div>
+</div>
+</div>
 </section>
 
 <section id="planPage" class="hidden">
@@ -85,17 +140,21 @@ const WORDS=[{"en": "mother", "de": ["Mutter"], "sentence": "My mother is at hom
 const DAILY_TARGET=6;
 let today=loadToday();
 let learned=JSON.parse(localStorage.getItem("english_v05_learned")||"[]");
+// Bestehende v0.5-Schlüssel bleiben absichtlich unverändert: Keine Vokabeln verlieren.
 let vocab=JSON.parse(localStorage.getItem("english_vocab_box_v05")||"[]");
+let ownSentences=JSON.parse(localStorage.getItem("english_own_sentences_v06")||"[]");
+let editingVocabIndex=-1,editingSentenceIndex=-1,ownPractice={mode:"words",items:[],index:0,right:0,repeat:0,ready:false};
 let currentIndex=0,currentWord=WORDS[0],step=1,puzzleWords=[],puzzleAnswer=[];
 
 function dayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
 function loadToday(){const r=JSON.parse(localStorage.getItem("english_v05_today")||"null");return(!r||r.day!==dayKey())?{day:dayKey(),done:[],retry:[]}:r}
 function saveAll(){localStorage.setItem("english_v05_today",JSON.stringify(today));localStorage.setItem("english_v05_learned",JSON.stringify(learned))}
 function saveVocab(){localStorage.setItem("english_vocab_box_v05",JSON.stringify(vocab))}
+function saveOwnSentences(){localStorage.setItem("english_own_sentences_v06",JSON.stringify(ownSentences))}
 function normalize(s){return(s||"").trim().toLowerCase().replace(/[.,!?;:]/g,"").replace(/\s+/g," ")}
 function approxMatch(input,accepted){const x=normalize(input);return accepted.some(a=>{const y=normalize(a);if(x===y)return true;const xa=new Set(x.split(" ")),ya=new Set(y.split(" "));let o=0;ya.forEach(w=>{if(xa.has(w))o++});return ya.size>0&&o/ya.size>=0.8})}
 function say(text){if(!("speechSynthesis" in window)){alert("Vorlesen wird hier nicht unterstützt.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u)}
-function show(id){["home","learn","choicePage","vocabPage","planPage"].forEach(x=>document.getElementById(x).classList.add("hidden"));document.getElementById(id).classList.remove("hidden")}
+function show(id){["home","learn","choicePage","vocabPage","ownPracticePage","planPage"].forEach(x=>document.getElementById(x).classList.add("hidden"));document.getElementById(id).classList.remove("hidden")}
 function goHome(){show("home");renderHome()} function showPlan(){show("planPage")}
 function renderHome(){
  document.getElementById("homeProgress").textContent=`${today.done.length} von ${DAILY_TARGET} geschafft`;
@@ -196,19 +255,136 @@ function finishWord(){
 function repeatWord(){today.done=today.done.filter(x=>x!==currentIndex);learned=learned.filter(x=>x!==currentIndex);saveAll();step=1;renderStep()}
 function afterWord(){if(today.done.length>=DAILY_TARGET){show("choicePage");return}launchNext()}
 
+function el(id){return document.getElementById(id)}
 function openVocab(){show("vocabPage");renderVocab()}
+function cancelVocabEdit(){editingVocabIndex=-1;["vocabEn","vocabDe","vocabSentenceEn","vocabSentenceDe","vocabNote"].forEach(id=>el(id).value="");el("vocabSaveButton").textContent="💾 Wort speichern";el("vocabCancelButton").classList.add("hidden")}
 function addVocab(){
- const en=document.getElementById("vocabEn").value.trim(),de=document.getElementById("vocabDe").value.trim(),note=document.getElementById("vocabNote").value.trim();
- if(!en){alert("Bitte mindestens das englische Wort eingeben.");return}
- vocab.unshift({en,de,note});saveVocab();document.getElementById("vocabEn").value="";document.getElementById("vocabDe").value="";document.getElementById("vocabNote").value="";renderVocab();
+ const en=el("vocabEn").value.trim(),de=el("vocabDe").value.trim(),note=el("vocabNote").value.trim(),sentenceEn=el("vocabSentenceEn").value.trim(),sentenceDe=el("vocabSentenceDe").value.trim();
+ if(!en){el("vocabStatus").textContent="Bitte ein englisches Wort eingeben.";return}
+ if(Boolean(sentenceEn)!==Boolean(sentenceDe)){el("vocabStatus").textContent="Bitte den Beispielsatz auf Englisch UND Deutsch eingeben oder beide Satzfelder frei lassen.";return}
+ const entry={en,de,note,sentenceEn,sentenceDe};
+ if(editingVocabIndex>=0 && vocab[editingVocabIndex])vocab[editingVocabIndex]={...vocab[editingVocabIndex],...entry};
+ else vocab.unshift(entry);
+ saveVocab();cancelVocabEdit();el("vocabStatus").textContent="✅ Wort gespeichert";renderVocab();
+}
+function editVocab(i){
+ const v=vocab[i];if(!v)return;editingVocabIndex=i;
+ el("vocabEn").value=v.en||"";el("vocabDe").value=v.de||"";el("vocabNote").value=v.note||"";
+ el("vocabSentenceEn").value=v.sentenceEn||"";el("vocabSentenceDe").value=v.sentenceDe||"";
+ el("vocabSaveButton").textContent="💾 Änderung speichern";el("vocabCancelButton").classList.remove("hidden");el("vocabStatus").textContent="Wort bearbeiten";el("vocabEn").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function removeVocab(i){if(confirm("Dieses Wort und seinen Beispielsatz löschen?")){vocab.splice(i,1);saveVocab();cancelVocabEdit();renderVocab()}}
+function cancelSentenceEdit(){editingSentenceIndex=-1;el("ownSentenceEn").value="";el("ownSentenceDe").value="";el("ownSentenceSaveButton").textContent="💾 Satz speichern";el("ownSentenceCancelButton").classList.add("hidden")}
+function saveOwnSentence(){
+ const en=el("ownSentenceEn").value.trim(),de=el("ownSentenceDe").value.trim();
+ if(!en||!de){el("ownSentenceStatus").textContent="Bitte beide Sätze eintragen: Englisch UND Deutsch.";return}
+ if(editingSentenceIndex>=0 && ownSentences[editingSentenceIndex])ownSentences[editingSentenceIndex]={en,de};
+ else ownSentences.unshift({en,de});
+ saveOwnSentences();cancelSentenceEdit();el("ownSentenceStatus").textContent="✅ Satz gespeichert";renderVocab();
+}
+function editOwnSentence(i){
+ const s=ownSentences[i];if(!s)return;editingSentenceIndex=i;el("ownSentenceEn").value=s.en;el("ownSentenceDe").value=s.de;
+ el("ownSentenceSaveButton").textContent="💾 Änderung speichern";el("ownSentenceCancelButton").classList.remove("hidden");el("ownSentenceEn").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function removeOwnSentence(i){if(confirm("Diesen Satz löschen?")){ownSentences.splice(i,1);saveOwnSentences();cancelSentenceEdit();renderVocab()}}
+function createRow(en,de,note,onEdit,onDelete){
+ const div=document.createElement("div");div.className="vocab";
+ const head=document.createElement("strong");head.textContent=en;div.appendChild(head);
+ const translation=document.createElement("div");translation.className="muted";translation.textContent=de||"Deutsche Übersetzung fehlt";div.appendChild(translation);
+ if(note){const n=document.createElement("div");n.className="note";n.textContent=note;div.appendChild(n)}
+ const actions=document.createElement("div");actions.className="row";actions.style.marginTop="10px";
+ const listen=document.createElement("button");listen.className="secondary";listen.textContent="🔊 Anhören";listen.onclick=()=>say(en);
+ const edit=document.createElement("button");edit.className="secondary";edit.textContent="✏️ Ändern";edit.onclick=onEdit;
+ const remove=document.createElement("button");remove.className="secondary";remove.textContent="🗑 Löschen";remove.onclick=onDelete;
+ actions.append(listen,edit,remove);div.appendChild(actions);return div;
 }
 function renderVocab(){
- const box=document.getElementById("vocabList");
- if(!vocab.length){box.innerHTML='<div class="muted">Noch keine eigenen Wörter gespeichert.</div>';return}
- box.innerHTML=vocab.map((v,i)=>`<div class="vocab"><strong>${escapeHtml(v.en)}</strong><div class="muted">${v.de?escapeHtml(v.de):"Bedeutung noch offen"}</div>${v.note?`<div style="margin-top:6px">${escapeHtml(v.note)}</div>`:""}<div class="row" style="margin-top:10px"><button class="secondary" onclick='say(${JSON.stringify(v.en)})'>🔊 Anhören</button><button class="secondary" onclick="removeVocab(${i})">Löschen</button></div></div>`).join("");
+ const box=el("vocabList"),sentBox=el("sentenceList");box.replaceChildren();sentBox.replaceChildren();
+ el("vocabListTitle").textContent=`Gespeicherte Wörter (${vocab.length})`;
+ const examples=vocab.filter(v=>v.sentenceEn&&v.sentenceDe).length;
+ el("sentenceListTitle").textContent=`Gespeicherte Sätze (${ownSentences.length} eigene + ${examples} Beispiele)`;
+ if(!vocab.length){const m=document.createElement("p");m.className="muted";m.textContent="Noch keine eigenen Wörter gespeichert.";box.appendChild(m)}
+ vocab.forEach((v,i)=>{
+  const note=[v.note, v.sentenceEn&&v.sentenceDe?`Beispielsatz: ${v.sentenceEn} — ${v.sentenceDe}`:""].filter(Boolean).join("\n");
+  const row=createRow(v.en||"",v.de||"",note,()=>editVocab(i),()=>removeVocab(i));
+  if(!v.de){const t=document.createElement("div");t.className="note";t.textContent="Zum Üben bitte deutsche Bedeutung ergänzen (Ändern).";row.appendChild(t)}
+  box.appendChild(row);
+ });
+ if(!ownSentences.length){const m=document.createElement("p");m.className="muted";m.textContent="Noch keine eigenständigen Sätze gespeichert. Beispielsätze stehen bei ihren Wörtern.";sentBox.appendChild(m)}
+ ownSentences.forEach((v,i)=>sentBox.appendChild(createRow(v.en,v.de,"",()=>editOwnSentence(i),()=>removeOwnSentence(i))));
 }
-function removeVocab(i){if(confirm("Dieses Wort löschen?")){vocab.splice(i,1);saveVocab();renderVocab()}}
-function escapeHtml(s=""){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+function getOwnItems(mode){
+ if(mode==="words")return vocab.filter(v=>v.en&&v.de).map(v=>({en:v.en,de:v.de,once:false}));
+ const standalone=ownSentences.filter(v=>v.en&&v.de).map(v=>({en:v.en,de:v.de,once:false}));
+ const examples=vocab.filter(v=>v.sentenceEn&&v.sentenceDe).map(v=>({en:v.sentenceEn,de:v.sentenceDe,once:false}));
+ return [...standalone,...examples];
+}
+function shuffleItems(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startOwnPractice(mode){
+ const items=shuffleItems(getOwnItems(mode));
+ if(!items.length){openVocab();alert(mode==="words"?"Bitte zuerst ein englisches Wort und seine deutsche Bedeutung speichern.":"Bitte zuerst einen englischen und deutschen Satz speichern.");return}
+ ownPractice={mode,items,index:0,right:0,repeat:0,ready:false};
+ show("ownPracticePage");renderOwnPractice();
+}
+function renderOwnPractice(){
+ const p=ownPractice,finished=p.index>=p.items.length;
+ el("ownPracticeTitle").textContent=p.mode==="words"?"📝 Meine Wörter üben":"💬 Meine Sätze üben";
+ el("ownPracticeBar").style.width=`${finished?100:Math.round(p.index/p.items.length*100)}%`;
+ el("ownPracticeTask").classList.toggle("hidden",finished);
+ el("ownPracticeFinished").classList.toggle("hidden",!finished);
+ if(finished){el("ownPracticeCount").textContent="Geschafft!";el("ownPracticeSummary").textContent=`🎉 Fertig! ${p.right} gewusst, ${p.repeat} zum Wiederholen markiert. Du kannst jederzeit erneut üben.`;return}
+ const v=p.items[p.index];p.ready=false;
+ // Richtung bei jeder Karte abwechseln; Antworten werden mit beiden gespeicherten Sprachen abgeglichen.
+ p.englishQuestion=(p.index%2===0);
+ el("ownPracticeCount").textContent=`${p.index+1} von ${p.items.length}`;
+ el("ownPracticeDirection").textContent=p.englishQuestion?"Was bedeutet das auf Deutsch?":"Wie heißt das auf Englisch?";
+ el("ownPracticePrompt").textContent=p.englishQuestion?v.en:v.de;
+ el("ownPracticeAnswer").value="";el("ownPracticeAnswer").disabled=false;
+ el("ownPracticeFeedback").replaceChildren();el("ownPracticeRating").classList.add("hidden");
+}
+function showOwnResult(message,correct){
+ const box=el("ownPracticeFeedback");box.replaceChildren();const div=document.createElement("div");div.className=`feedback ${correct?"ok":"info"}`;div.textContent=message;box.appendChild(div);
+ ownPractice.ready=true;el("ownPracticeRating").classList.remove("hidden");
+}
+function checkOwnPractice(){
+ if(ownPractice.ready)return;
+ const answer=el("ownPracticeAnswer").value.trim();if(!answer)return;
+ const v=ownPractice.items[ownPractice.index],target=ownPractice.englishQuestion?v.de:v.en;
+ const matched=normalize(answer)===normalize(target);
+ showOwnResult(matched?"✅ Richtig! Super gemacht!":`Die gespeicherte Lösung ist: ${target}. Du kannst selbst entscheiden, ob deine Antwort ebenfalls richtig war.`,matched);
+}
+function revealOwnPractice(){
+ if(ownPractice.ready)return;
+ const v=ownPractice.items[ownPractice.index];showOwnResult(`Englisch: ${v.en} | Deutsch: ${v.de}`,false);
+}
+function listenOwnPractice(){const v=ownPractice.items[ownPractice.index];if(v)say(v.en)}
+function rateOwnPractice(known){
+ const p=ownPractice;if(!p.ready)return;
+ const v=p.items[p.index];
+ if(known)p.right++;
+ else{p.repeat++;if(!v.once){v.once=true;p.items.push(v)}}
+ p.index++;renderOwnPractice();
+}
+function downloadBackup(){
+ const data={format:"englisch-v06",version:6,vocab,ownSentences,learned,today};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download=`englisch-sicherung-${dayKey()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function restoreBackup(event){
+ const file=event.target.files[0];if(!file)return;
+ try{
+  const data=JSON.parse(await file.text());
+  const validWords=Array.isArray(data.vocab)&&data.vocab.every(v=>v&&typeof v.en==="string"&&typeof v.de==="string");
+  const validSentences=Array.isArray(data.ownSentences)&&data.ownSentences.every(v=>v&&typeof v.en==="string"&&typeof v.de==="string");
+  if(data.format!=="englisch-v06"||!validWords||!validSentences||!Array.isArray(data.learned)||!data.today)throw new Error("Unpassende Sicherungsdatei");
+  if(!confirm("Deine derzeit gespeicherten Wörter, Sätze und der Lernstand werden durch diese Sicherung ersetzt. Fortfahren?"))return;
+  vocab=data.vocab;ownSentences=data.ownSentences;learned=data.learned.filter(i=>Number.isInteger(i)&&i>=0&&i<WORDS.length);
+  today=(data.today.day===dayKey()&&Array.isArray(data.today.done)&&Array.isArray(data.today.retry))?data.today:{day:dayKey(),done:[],retry:[]};
+  saveVocab();saveOwnSentences();saveAll();cancelVocabEdit();cancelSentenceEdit();renderVocab();renderHome();alert("✅ Sicherung geladen.");
+ }catch(e){alert("Sicherung konnte nicht geladen werden: "+e.message)}
+ finally{event.target.value=""}
+}
+function escapeHtml(s=""){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
 renderHome();
 </script>
 </body></html>
